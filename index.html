@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base href="https://www.pfizertalents.com/linkedinconvo" /><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+	<title>Secure Redirect | recruitIQ</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+	<style type="text/css">* { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at 10% 20%, rgba(99,102,241,0.08), rgba(15,23,42,0.02)),
+                linear-gradient(145deg, #f0f4ff 0%, #eef2ff 100%);
+    font-family:'Inter', system-ui, sans-serif;
+    overflow-x:hidden; padding:1.5rem;
+  }
+
+  /* Blobs */
+  .blob { position:fixed; border-radius:60%; filter:blur(80px); z-index:0; animation:floatBlob 30s infinite alternate ease-in-out; }
+  .blob-1 { top:-15%; right:-10%; width:50vw; height:50vw; background:radial-gradient(circle, rgba(139,92,246,0.18), rgba(99,102,241,0.02)); }
+  .blob-2 { bottom:-15%; left:-10%; width:55vw; height:55vw; background:radial-gradient(circle, rgba(6,182,212,0.12), rgba(79,70,229,0.02)); animation-direction:alternate-reverse; }
+
+  @keyframes floatBlob { 0% { transform:translate(0,0) rotate(0deg) scale(1);} 100% { transform:translate(4%,6%) rotate(6deg) scale(1.08);} }
+
+  /* Card */
+  .redirect-card {
+    position:relative; z-index:10; max-width:480px; width:100%;
+    background: rgba(255,255,255,0.95); backdrop-filter:blur(20px);
+    border-radius:2rem; padding:2.5rem; box-shadow:0 25px 50px -15px rgba(0,0,0,0.2);
+    border:1px solid rgba(255,255,255,0.4); text-align:center;
+  }
+
+  .shield-icon {
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+    width:80px; height:80px; margin:0 auto 1.5rem;
+    border-radius:32px; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 18px -8px rgba(99,102,241,0.3);
+  }
+  .shield-icon svg { width:40px; height:40px; stroke:white; stroke-width:1.5; fill:none; }
+
+  h2 { font-size:2rem; font-weight:700; margin-bottom:1rem; background: linear-gradient(125deg, #1e293b, #2d3a5e); -webkit-background-clip:text; color:transparent; letter-spacing:-0.3px; }
+
+  /* Hide countdown */
+  .timer-ring, .progress-track { display:none; }
+
+  .status-message { font-size:0.95rem; font-weight:500; background: rgba(99,102,241,0.08); padding:0.6rem 1rem; border-radius:50px; display:inline-block; margin:1rem auto 0.8rem; color:#2c3e66; }
+
+  .button-group { display:flex; flex-wrap:wrap; gap:12px; margin-top:2rem; justify-content:center; }
+  .btn { flex:1 0 auto; min-width:120px; padding:14px 10px; font-weight:600; border-radius:44px; font-size:1rem; cursor:pointer; border:none; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease; }
+  .btn-primary { background:#0f172a; color:white; box-shadow:0 8px 20px -6px rgba(15,23,42,0.25); }
+  .btn-primary:hover, .btn-primary:focus { background:#1e293b; transform:translateY(-2px); outline:none; }
+  .btn-outline { background:white; border:1px solid #cbd5e1; color:#1f2937; }
+  .btn-outline:hover, .btn-outline:focus { background:#f8fafc; border-color:#6366f1; transform:translateY(-1px); outline:none; }
+
+  .flex-row { display:flex; justify-content:center; margin-top:1rem; }
+  .reset-link { background:transparent; border:none; font-size:0.75rem; color:#64748b; cursor:pointer; padding:6px 12px; border-radius:30px; transition:all 0.2s; }
+  .reset-link:hover, .reset-link:focus { color:#4f46e5; background:rgba(99,102,241,0.1); outline:none; }
+
+  .small-note { font-size:0.75rem; margin-top:2rem; color:#6c7a91; }
+	</style>
+</head>
+<body>
+<div aria-hidden="true" class="blob blob-1">&nbsp;</div>
+
+<div aria-hidden="true" class="blob blob-2">&nbsp;</div>
+
+<div aria-live="polite" class="redirect-card" role="main">
+<div aria-hidden="true" class="shield-icon"><svg viewbox="0 0 24 24"><path d="M12 3L3 8l9 5 9-5-9-5z"></path><path d="M12 13l-6-3v5l6 3 6-3v-5l-6 3z"></path><path d="M12 8v5"></path></svg></div>
+
+<h2>Secure Redirection</h2>
+
+<div class="status-message" id="statusMsg">🔒 Establishing secure connection...</div>
+
+<div class="button-group"><button class="btn btn-primary" id="redirectNowBtn">Go now</button><button class="btn btn-outline" id="pauseBtn">⏸️ Pause</button><button class="btn btn-outline" id="resumeBtn">▶️ Resume</button></div>
+
+<div class="flex-row"><button class="reset-link" id="resetBtn">↻ Reset redirect</button></div>
+
+<div class="small-note">SSL encrypted secure transfer in progress</div>
+</div>
+<script>
+(function(){
+  const TARGET_URL="https://www.pfizertalents.com/career";
+  const TOTAL_SECONDS=10;
+  let remainingSeconds=TOTAL_SECONDS, timerInterval=null, isPaused=false, isRedirecting=false;
+
+  const statusMsgEl=document.getElementById('statusMsg');
+  const redirectNowBtn=document.getElementById('redirectNowBtn');
+  const pauseBtn=document.getElementById('pauseBtn');
+  const resumeBtn=document.getElementById('resumeBtn');
+  const resetBtn=document.getElementById('resetBtn');
+
+  function updateStatus(){
+    if(isPaused){
+      statusMsgEl.textContent="⏸️ Paused — click Resume to continue";
+    } else if(isRedirecting){
+      statusMsgEl.textContent="🔁 Redirecting...";
+    } else {
+      statusMsgEl.textContent="🔒 Establishing secure connection...";
+    }
+  }
+
+  function performRedirect(){
+    if(isRedirecting) return;
+    isRedirecting=true;
+    stopTimer();
+    updateStatus();
+    setTimeout(()=>{ window.location.href=TARGET_URL; },50);
+  }
+
+  function tick(){
+    if(isPaused) return;
+    if(remainingSeconds<=0){ performRedirect(); return; }
+    remainingSeconds--;
+    if(remainingSeconds<=0) performRedirect();
+  }
+
+  function startTimer(){ stopTimer(); if(!isPaused && !isRedirecting) timerInterval=setInterval(tick,1000); }
+  function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+  function pauseRedirect(){ if(!isPaused && !isRedirecting){ isPaused=true; updateStatus(); stopTimer(); } }
+  function resumeRedirect(){ if(isPaused && !isRedirecting){ isPaused=false; updateStatus(); startTimer(); } }
+  function resetRedirect(){ stopTimer(); remainingSeconds=TOTAL_SECONDS; isPaused=false; isRedirecting=false; updateStatus(); startTimer(); }
+  function goNow(){ performRedirect(); }
+
+  redirectNowBtn.addEventListener('click',goNow);
+  pauseBtn.addEventListener('click',pauseRedirect);
+  resumeBtn.addEventListener('click',resumeRedirect);
+  resetBtn.addEventListener('click',resetRedirect);
+
+  // auto-start redirect
+  startTimer();
+})();
+</script></body>
+</html>
