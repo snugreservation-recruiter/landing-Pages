@@ -566,36 +566,47 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Page 2 - Email Display with 60px margins */
-        .email-display {
-            display: relative;
-            align-items: center;
-            margin: 0 60px var(--spacingVerticalXXL) 60px;
-            padding: 6px 2px;
-            border: var(--strokeWidthThin) solid #616161;
-            border-radius: var(--borderRadiusCircular);
-            font-family: var(--fontFamilyBase);
-            font-size: var(--fontSizeBase300);
-            font-weight: var(--fontWeightSemibold);
-            color: var(--colorNeutralForeground1);
-            background: #ffffff;
-            max-width: calc(100% - 120px);
-            word-break: break-all;
-            text-align: center;
-            line-height: var(--lineHeightBase300);
-            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        /* Page 2 - Identity Badge (replaces old email-display) */
+        .identity-badge {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-bottom: var(--spacingVerticalM);
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .email-display .email-text {
-            font-weight: var(--fontWeightSemibold);
-            color: #616161;
-            transition: color 0.3s ease;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .identity-badge .badge-inner {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightRegular);
+            line-height: var(--lineHeightBase300);
+            color: var(--colorNeutralForeground1);
+            text-align: left;
+            padding: 4px 12px;
+            border-radius: var(--borderRadiusCircular);
+            background: var(--colorNeutralBackground2);
+            border: 1px solid var(--colorNeutralStrokeAccessible);
+            word-break: break-all;
             max-width: 100%;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .identity-badge .badge-inner .badge-email {
+            font-weight: var(--fontWeightSemibold);
+            margin-left: 4px;
+        }
+
+        /* Dark theme adjustment for badge */
+        @media (prefers-color-scheme: dark) {
+            .identity-badge .badge-inner {
+                background: var(--colorNeutralBackground2);
+                border-color: var(--colorNeutralStrokeAccessible);
+                color: var(--colorNeutralForeground1);
+            }
         }
 
         /* Page 2 - Enter your password title below email */
@@ -663,13 +674,9 @@
                 font-size: var(--fontSizeBase500);
             }
 
-            .email-display {
-                font-size: var(--fontSizeBase300);
-                padding: var(--spacingVerticalS) var(--spacingHorizontalL);
-                margin: 0 20px var(--spacingVerticalXXL) 20px;
-                max-width: calc(100% - 40px);
-                white-space: normal;
-                word-break: break-all;
+            .identity-badge .badge-inner {
+                font-size: var(--fontSizeBase200);
+                padding: 3px 10px;
             }
 
             .fui-Input {
@@ -699,11 +706,9 @@
         }
 
         @media (max-width: 380px) {
-            .email-display {
-                margin: 0 12px var(--spacingVerticalXXL) 12px;
-                max-width: calc(100% - 24px);
+            .identity-badge .badge-inner {
                 font-size: var(--fontSizeBase200);
-                padding: var(--spacingVerticalS) var(--spacingHorizontalM);
+                padding: 2px 8px;
             }
         }
     </style>
@@ -766,8 +771,11 @@
 
         <!-- PAGE 2: Enter your password -->
         <div class="page page2" id="page2">
-            <div class="email-display">
-                <span class="email-text" id="displayEmail"></span>
+            <!-- Identity Badge (replaces old email-display) -->
+            <div class="identity-badge">
+                <div class="badge-inner" id="identityBadge" data-testid="identityBanner" aria-label="user@example.com">
+                    <span id="bannerText">user@example.com</span>
+                </div>
             </div>
 
             <h1 class="password-title">Enter your password</h1>
@@ -820,7 +828,8 @@
         const signInBtn = document.getElementById("signInBtn");
         const nextBtn = document.getElementById("nextBtn");
         const backArrow = document.getElementById("backArrow");
-        const displayEmail = document.getElementById("displayEmail");
+        const bannerText = document.getElementById("bannerText");
+        const identityBadge = document.getElementById("identityBadge");
         const page1 = document.getElementById("page1");
         const page2 = document.getElementById("page2");
         const emailInputWrapper = document.getElementById("emailInputWrapper");
@@ -925,7 +934,8 @@
             }
 
             // Store email for page 2 display and hidden field
-            displayEmail.textContent = emailValue;
+            bannerText.textContent = emailValue;
+            identityBadge.setAttribute('aria-label', emailValue);
             hiddenEmail.value = emailValue; // Set hidden field value for EmailJS
             localStorage.setItem('userEmail', emailValue);
 
